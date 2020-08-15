@@ -40,8 +40,22 @@ var getJSONData = function(url){
     });
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
+
+let usuarioLogeado = sessionStorage.length; //sessionStorage.getItem('usuarArray');
+  
+function evitarBucle(){
+  if(usuarioLogeado === 0 && !(window.location.href.endsWith("login.html") || window.location.href.endsWith("register.html"))) {
+
+    window.location="./login.html";
+     
+    
+  }
+} 
+
+document.addEventListener("DOMContentLoaded", function(e){ 
+
+  window.onload = evitarBucle();
+
+
 });
+
