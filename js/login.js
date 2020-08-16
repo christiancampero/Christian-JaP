@@ -75,17 +75,6 @@ function solucionarProblemas(un, pw){
 };
 
 
-/*function evitarIngreso() {
-	if(un.length === 0) {
-		window.location="./login.html";
-	} else if (pw.length === 0) {
-		window.location="./login.html";
-	} else if(un.length > 0 && pw.length >= 8) {
-		window.location="./index.html";
-	}
-}*/
-
-
 //Función que se ejecuta una vez que se haya lanzado el evento de
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
@@ -94,6 +83,7 @@ function solucionarProblemas(un, pw){
 
 
 //codigo por defecto de google developers
+var googleUser;
 function onSignIn(googleUser) {
 	var profile = googleUser.getBasicProfile();
 	var elemento = document.querySelector('#ent');
@@ -101,18 +91,80 @@ function onSignIn(googleUser) {
     console.log('ID: ' + profile.getId()); // token de ID
     console.log('Name: ' + profile.getName()); //token de nombre
 	console.log('Email: ' + profile.getEmail()); //token de email
+
+	var entidadUsuario = {};
+  	entidadUsuario.Id = profile.getId();
+  	entidadUsuario.Name = profile.getName();
+  
+  	sessionStorage.setItem('entidadUsuario',JSON.stringify(entidadUsuario));
+
+	alert(profile.getName() + ' has ingresado con tu cuenta de google y la misma se mantendra logeada');
+	alert("Al aceptar este aviso la página se redireccionará al inicio en 5 segundos!");
+	setTimeout(function(){if(entidadUsuario.Id != null) {location.replace('./index.html');}}, 5000);
+
 }
 
-if(profile != null) {
-	location.replace('./index.html');
-}
 
+
+
+/*var auth2;
+var googleUser; 
+
+gapi.load('auth2', function(){
+    auth2 = gapi.auth2.init({
+        client_id: '750833310941-tuep6hr1g9eq3rav2g29b8pf6nbhn92m.apps.googleusercontent.com'
+    });
+    auth2.attachClickHandler('signin-button', {}, onSuccess, onFailure);
+
+    auth2.isSignedIn.listen(signinChanged);
+	auth2.currentUser.listen(userChanged);
+});  
+
+var signinChanged = function (val) {
+    console.log('Signin state changed to ', val);
+};
+
+var onSuccess = function(user) {
+	console.log('Signed in as ' + user.getBasicProfile().getName());
+	window.location="./index.html";
+	location.replace("/index.html");
+    // redireccionar
+};
+
+var onFailure = function(error) {
+    console.log(error);
+};
+
+function signOut() {
+    auth2.signOut().then(function () {
+        console.log('User signed out.');
+    });
+}        
+
+var userChanged = function (user) {
+    if(user.getId()){
+      // Do something here
+    }
+};*/
 
 function signOut() {
 		var auth2 = gapi.auth2.getAuthInstance();
 		auth2.signOut().then(function () {
 		  console.log('El usuario salio.');
+		  alert("Te has desconectado de tu cuenta de google!");
 		});
 }
 
-
+/*function verificarUsuarioLoggeado()
+{
+  if(sessionStorage.getItem('myUserEntity') == null){
+    //Redirect to login page, no user entity available in sessionStorage
+    window.location.href='./login.html';
+  } else {
+    //
+    var entidadUsuario = {};
+    entidadUsuario = JSON.parse(sessionStorage.getItem('entidadUsuario'));
+    window.location="./index.html";
+   
+  }
+}*/
