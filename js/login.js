@@ -98,8 +98,8 @@ function onSignIn(googleUser) {
   
   	sessionStorage.setItem('entidadUsuario',JSON.stringify(entidadUsuario));
 
-	alert(profile.getName() + ' has ingresado con tu cuenta de google y la misma se mantendra logeada');
-	alert("Al aceptar este aviso la página se redireccionará al inicio en 5 segundos!");
+	alert(profile.getName() + ' has ingresado con tu cuenta de google y la misma se mantendra conectada');
+	alert("Al aceptar este aviso, la página se redireccionará al inicio en 5 segundos!");
 	setTimeout(function(){if(entidadUsuario.Id != null) {location.replace('./index.html');}}, 5000);
 
 }
