@@ -99,8 +99,13 @@ function onSignIn(googleUser) {
   	sessionStorage.setItem('entidadUsuario',JSON.stringify(entidadUsuario));
 
 	alert(profile.getName() + ' has ingresado con tu cuenta de google y la misma se mantendra conectada');
-	alert("Al aceptar este aviso, la página se redireccionará al inicio en 5 segundos!");
-	setTimeout(function(){if(entidadUsuario.Id != null) {location.replace('./index.html');}}, 5000);
+	/*alert("Al aceptar este aviso, la página se redireccionará al inicio en 5 segundos!");
+	setTimeout(function(){if(entidadUsuario.Id != null) {location.replace('./index.html');}}, 5000);*/
+	var aceptado = confirm("Si quieres quedarte en la página actual y cambiar de cuenta, presioná Cancelar, de otra forma presioná Aceptar");
+	if(aceptado == true) {
+		location.replace('./index.html');
+		//window.location = './index.html';
+	} 
 
 }
 
