@@ -105,6 +105,7 @@ function onSignIn(googleUser) {
 	if(aceptado == true) {
 		location.replace('./index.html');
 		//window.location = './index.html';
+		//
 	} 
 
 }
