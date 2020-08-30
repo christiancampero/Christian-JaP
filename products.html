@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <title>eMercado - Todo lo que busques está aquí</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
@@ -14,39 +15,79 @@
     <link href="css/styles.css" rel="stylesheet">
   </head>
   <body>
-    <nav class="site-header sticky-top py-1 bg-dark">
+    <nav class="navbar navbar-expand-lg site-header sticky-top py-1 bg-dark">
       <div class="container d-flex flex-column flex-md-row justify-content-between">
         <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
         <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
         <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
         <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
         <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Info Usuario:
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" id="usuarioON"></a>
+            <a class="dropdown-item" href="#">Perfil</a>
+            <a class="dropdown-item" onclick="signOut();" href="./login.html">Salir</a>
+          </div>
+        </div>
       </div>
     </nav>
-  <!--<div class="container p-5">
-      <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-        <h4 class="alert-heading">¡A trabajar! :)</h4>
-        <p>Esta sección corresponde a: Entrega 1 (Fecha de entrega: 16/08/2020) y Entrega 2 (Fecha de entrega: 30/08/2020).</p>
-        <hr>
-        <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
-      </div>
-    </div>-->
+
     <main role="main" class="pb-5">
       <div class="text-center p-4">
           <h2>Productos</h2>
           <p class="lead">Verás aquí todos los productos de la categoría <span>Autos.</span></p>
+          <p>Clickear en el botón "Limpiar" para restablecer la lista de productos</p>
       </div>
       <div class="container">
           <div class="row">
               <div class="col text-right">
-                  <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
-                      <label class="btn btn-light active" id="sortCostAsc" >
-                          <input type="radio" name="options" autocomplete="off" checked>Más barato -> Más caro
+                  <div class="btn-group-md btn-group-toggle mb-4" data-toggle="buttons"> <!-- Estilos buttons bs -->
+                      <label class="btn btn-primary active" id="sortCostAsc"> <!-- con active ilumino el button cuando lo clickeo  -->
+                          <input type="radio" name="options" autocomplete="off" checked>$$-/-$$$ 
                       </label>
-                      <label class="btn btn-light" id="sortCountSoldDesc" >
-                          <input type="radio" name="options" autocomplete="off">Más vendido -> Menos vendido
+                      <label class="btn btn-warning active" id="sortCostDesc">
+                        <input type="radio" name="options" autocomplete="off" checked>$$$-/-$$ 
                       </label>
+                      <label class="btn btn-success active" id="sortCountSoldDesc">
+                        <input type="radio" name="options" autocomplete="off" checked>Más relevante-/-Menos relevante 
+                    </label>
+                      <label class="btn btn-outline-dark" id="rangoFiltroDefinido1">
+                        <input type="radio" name="options" checked autocomplete="off">12500 USD hasta 14500 USD 
+                      </label> 
+                      <br>
+                      <label class="btn btn-outline-dark" id="rangoFiltroDefinido2">
+                        <input type="radio" name="options" checked autocomplete="off">13500 USD hasta 15200 USD 
+                      </label>  
                   </div>
+              </div>
+              <br>
+              <div  class="active-cyan-3 active-cyan-4 mb-4">
+                <input id="barraBusqueda" type="search" placeholder="Buscar producto..."> <!-- oninput="actualizarResultados(this.value)" -->
+              </div>
+          </div>
+          <div class="row justify-content-end">
+            <div class="col-md-6"></div>
+              <div class="col-md-6 col-sm-12 mb-1 container">
+                <div class="row container p-0 m-0">
+                  <div class="col">
+                    <p class="font-weight-normal text-right my-2">Costo</p>
+                  </div>
+                  <div class="col">
+                    <input class="form-control" type="number" placeholder="min." id="rangoFiltroCostoMin">
+                  </div>
+                  <div class="col">
+                    <input class="form-control" type="number" placeholder="máx." id="rangoFiltroCostoMax">
+                  </div>
+                  <div class="col-3 p-0">
+                    <div class="btn-group" role="group">
+                      <button class="btn btn-primary btn-block" id="rangoFiltroCosto">Filtrar</button>
+                      <button class="btn btn-danger btn-sm" id="limpiarFiltro">Limpiar</button>
+                    </div>
+                  </div>
+                </div>
               </div>
           </div>
           <div class="row">
@@ -65,9 +106,22 @@
       </div>
     </footer>
     <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+    <script src="js/indexPrime.js"></script>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/init.js"></script>
     <script src="js/products.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#barraBusqueda").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#product-list-container *").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            //$(this).appen('<li class="list-group-item link-class"><img src="'+value.imgSrc+'" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.description+'</span></li>');
+          });
+        });
+      });
+    </script>
   </body>
 </html>

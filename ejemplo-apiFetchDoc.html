@@ -2,20 +2,62 @@
 <html>
    <head>
         <meta charset="utf-8">
-        <meta name="theme-color" content="#000000" />
+        <!-- <meta name="theme-color" content="#000000" /> -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Covid-19 Api</title>
-        <script src="ejemplo-fetchApi.js" type="text/javascript"></script>
+        <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
+        <title>Covid-19 y Poke Api</title>
+       <!--  <script src="ejemplo-fetchApi.js" type="text/javascript"></script> -->
         <meta name="description" content="Casos actuales y más información sobre COVID-19" />
-        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+        <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
    </head>
    
    <body>
-        <div id="main" style="font-weight: bold; text-align: center;"></div>
-       <div id="elem" style="font-weight: bold; text-align: center;"></div>
-        <!-- <h1>Usuarios GitHub </h1>
-        <ul id="users"></ul> -->
+        <div id="main" style="font-weight: bold;"></div>
+        <div class="container">
+          <h2>Covid-19 Datos en tiempo real</h2>
+                 
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Casos totales</th>
+                <th>Muertes totales</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+               <tr id="data"></tr>
+            </tbody>
+          </table>
+        </div>
+      <!--  <div id="elem" style="font-weight: bold; text-align: center;"></div> -->
+        
    </body>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+   <script>
+        $(document).ready(function() {
+               init();
+
+
+
+               function init() {
+                    var url = 'https://api.covid19api.com/summary';
+
+                    var data = ''; 
+
+                    $.get(url, function(data) {
+                         console.log(data.Global);
+
+
+                         data = 
+                         `
+                         <td>${data.Global.TotalConfirmed}</td>
+
+
+                         `
+                    })
+               }
+        })
+   </script>
 </html>

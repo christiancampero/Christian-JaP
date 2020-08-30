@@ -1,0 +1,40 @@
+.bg-pink {
+	border: 2px solid rgb(255, 35, 101);
+	background: rgb(255, 0, 43);
+	color: white;
+}
+.bg-brown {
+	border: 2px solid rgb(255, 58, 58);
+	background: rgb(199, 36, 36);
+	color: white;
+}
+.bg-green {
+	border: 2px solid rgb(30, 255, 0);
+	background: rgb(0, 143, 43);
+	color: white;
+}
+.bg-gray {
+	border: 2px solid rgb(102, 102, 102);
+	background: rgb(51, 51, 51);
+	color: white;
+}
+.bg-red {
+	border: 2px solid rgb(255, 0, 0);
+	background: rgb(238, 19, 19);
+	color: white;
+}
+.bg-purple {
+	border: 2px solid rgb(82, 0, 82);
+	background: purple;
+	color: white;
+}
+.bg-yellow {
+	border: 2px solid yellow;
+	background: rgb(255, 217, 0);
+	color: black;
+}
+.bg-blue {
+	border: 2px solid rgb(0, 17, 255);
+	background: blue;
+	color: white;
+}

@@ -41,7 +41,7 @@ var getJSONData = function(url){
 }
 
 
-let usuarioLogeado = sessionStorage.length; //sessionStorage.getItem('usuarArray');
+let usuarioLogeado = localStorage.length; //sessionStorage.getItem('usuarArray');
   
 function evitarBucle(){
   if(usuarioLogeado === 0 && !(window.location.href.endsWith("login.html") || window.location.href.endsWith("register.html"))) {
