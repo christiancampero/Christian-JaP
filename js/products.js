@@ -209,22 +209,42 @@ document.addEventListener("DOMContentLoaded", function(e){
 });
 
 
-/* (function(){
-    var inputFilter = document.querySelector("[data-filter]");
-     inputFilter.addEventListener("keyup", function(){
-  	    var inputValue = this.value, i;
-        var filterList = document.getElementById(this.dataset.filter);
-        var filterItem = filterList.querySelectorAll("li");
-        for(i = 0; i < filterItem.length; i++) {
-    		var _this = filterItem[i];
-        var phrase = _this.innerHTML; 
-    	if (phrase.search(new RegExp(inputValue, "i")) < 0) {
-      	_this.style.display = "none";
-      } else {
-      	_this.style.display = "block";
-      }
-    }
+$(document).ready(function(){
+    $("#barraBusqueda").on("keyup", function() {
+      var valor = $(this).val();
+        //$("#product-list-container").map(function() {
+        showProductsList(productsArray); 
+        //$("#product-list-container *").show();
+          if(valor) $("#product-list-container *").not(":containsNoCase(" + valor + ")").hide();
+            else $("#product-list-container *").show();
+        
+        
+      //});
+    });
   });
-})();
+  $.expr[":"].containsNoCase = function(el, i, m) {
+    var busqueda = m[3];
+    if (!busqueda) return false;
+    return new RegExp(busqueda, "i").test($(el).text());
+};
 
- */
+/* function buscarTiempoReal(productsArray){
+
+    var entradaDatos = document.getElementById("barraBusqueda");
+    
+        var filtroL = entradaDatos.value; 
+       
+
+        for(var i = 0; i < productsArray.length; i++){
+            
+            resultadosFiltro = array.filter(function(x){
+                if (x.name == keyup ) {
+                    x.style.display = "none";
+                } else {
+                    x.style.display = "block";
+                }
+            })
+        }
+
+} */
+

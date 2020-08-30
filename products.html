@@ -66,7 +66,7 @@
               </div>
               <br>
               <div  class="active-cyan-3 active-cyan-4 mb-4">
-                <input id="barraBusqueda" type="search" placeholder="Buscar producto..."> <!-- oninput="actualizarResultados(this.value)" -->
+                <input id="barraBusqueda" type="search" onkeyup="buscarTiempoReal()" placeholder="Buscar producto..."> <!-- oninput="actualizarResultados(this.value)" -->
               </div>
           </div>
           <div class="row justify-content-end">
@@ -113,16 +113,5 @@
     <script src="js/init.js"></script>
     <script src="js/products.js"></script>
     <script src="js/login.js"></script>
-    <script>
-      $(document).ready(function(){
-        $("#barraBusqueda").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#product-list-container *").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            //$(this).appen('<li class="list-group-item link-class"><img src="'+value.imgSrc+'" height="40" width="40" class="img-thumbnail" /> '+value.name+' | <span class="text-muted">'+value.description+'</span></li>');
-          });
-        });
-      });
-    </script>
   </body>
 </html>
