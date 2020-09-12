@@ -8,7 +8,6 @@ function infoUSuarioBarra() {
 
     var nuevitoGoog = JSON.parse(localStorage.getItem('entidadUsuario'));
     
-    console.log(nuevitoGoog);
     document.getElementById("usuarioGoog").innerHTML = nuevitoGoog.Name + `<p>conectado/a con cuenta Google</p>`;
 
 }

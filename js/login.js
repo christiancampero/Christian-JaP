@@ -161,12 +161,7 @@ function signOut() {
 		});
 }
 
-function salirYBorrar() {
-		signOut();
-		Storage.clear();
-		location.assign("./login.html");
-}
-document.getElementById("saliendo").onclick = salirYBorrar();
+document.getElementById("saliendo").onclick = signOut();
 
 /*function verificarUsuarioLoggeado()
 {
@@ -224,8 +219,7 @@ function autenticar(){
 				localStorage.setItem('quienIngreso', JSON.stringify(quienIngreso));
 				document.getElementById('un').value = "";
 				document.getElementById('pw').value = "";
-				location.assign("./index.html"); //redirige a index cuando el usuario ingresa 
-				//break;
+				location.replace("./index.html"); //redirige a index cuando el usuario ingresa 
 			} /* else if(un.length === 0) {
 				alert("Debes colocar algo en nombre de usuario");
 			} else if(pw.length === 0) {
