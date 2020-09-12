@@ -194,7 +194,7 @@ console.log(usuarArray);
 
 //Cuando el boton de "ingresar" es clickeado, llama a la función para obtener el id y password ingresados
 //y checkea la autenticación del usuario
-document.getElementById('entrar').onclick = autenticar();//function(){autenticar()};
+document.getElementById('entrar').onclick = function(){autenticar()};
 
 //función para autenticar el usuario 
 function autenticar(){
