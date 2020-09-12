@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>eMercado - Todo lo que busques está aquí</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/comentarios-Estilos.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg site-header sticky-top py-1 bg-dark">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
+        <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
+        <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
+        <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
+        <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Info Usuario:
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="#" id="usuarioON"></a>
+            <a class="dropdown-item" href="#" id="usuarioGoog"></a>
+            <a class="dropdown-item" href="#">Perfil</a>
+            <a class="dropdown-item" onclick="signOut();" href="./login.html">Salir</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main role="main" class="pb-5">
+      <div class="text-center p-4">
+          <h2>Comentarios</h2>
+          <p class="lead">Verás aquí todos los comentarios del producto seleccionado</p>
+          
+      </div>
+      <div class="container">
+          <div class="row">
+              <div class="list-group" id="products-comments-list">
+              </div>
+          </div>
+      </div>
+      <br>
+      <!-- <div class="container">
+      <form style="text-align: center;" action="" method="post">
+        <fieldset>
+          <label for="comment">Deja un comentario sobre el producto:</label>
+          <br>
+          <textarea name="comment" cols="20" rows="5" id="comentariO"></textarea>
+          <br>
+          <input name="preview" type="submit" value="Live Preview" id="preview">
+          <input name="submit" type="submit" value="Enviar comentario">
+        </fieldset>
+      </form>
+      <div id="previewbox"></div>
+    </div> -->
+    <div class="container" id="respond">
+      
+      <h3>Deja un comentario sobre el producto:</h3>
+    
+      <form action="" method="post" id="commentform">
+    
+        <label for="comment_author" class="required">Nombre de usuario:</label>
+        <input type="text" name="comment_author" id="comment_author" value="" tabindex="1" required="required" placeholder="Tu nombre de usuario...">
+    
+        <label for="puntaje" class="required">Puntuación:</label>
+        <input type="text" name="puntaje" id="puntaje" value="" tabindex="2" required="required" placeholder="Puntua el producto (de 1 a 5 puntos)...">
+    
+        <label for="comment" class="required">Tu comentario:</label>
+        <textarea name="comment" id="comment" rows="10" tabindex="4"  required="required" placeholder="Deja tu comentario..."></textarea>
+    
+        <!-- <-- comment_post_ID value hard-coded as 1 -->
+        <!-- <input type="hidden" name="comment_post_ID" value="1" id="comment_post_ID" /> -->
+        <input name="submit" type="submit" value="Enviar comentario" />
+      </form>
+    </div>
+  </main>
+    <footer class="text-muted bg-light">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Volver arriba</a>
+        </p>
+        <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
+        <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+      </div>
+    </footer>
+    <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
+    <script src="js/indexPrime.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/product-info-comments.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/login.js"></script>
+  </body>
+</html>

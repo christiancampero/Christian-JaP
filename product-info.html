@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -8,31 +8,187 @@
   <meta name="description" content="">
   <title>eMercado - Todo lo que busques está aquí</title>
 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- estilos star rating -->
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    
+    @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css");
+      i[class^=star-]:after{font: normal normal 16px/1 FontAwesome;}
+      .star-1:after{content:"\f005\f006\f006\f006\f006";}
+      .star-2:after{content:"\f005\f005\f006\f006\f006";}
+      .star-3:after{content:"\f005\f005\f005\f006\f006";}
+      .star-4:after{content:"\f005\f005\f005\f005\f006";}
+      .star-5:after{content:"\f005\f005\f005\f005\f005";}
+
+      .star-rating {
+        line-height:32px;
+        font-size:1.25em;
+      }
+      .star-rating .fa-star{color:darkblue;}
+  </style>
 </head>
 
 <body>
-  <nav class="site-header sticky-top py-1 bg-dark">
+  <nav class="navbar navbar-expand-lg site-header sticky-top py-1 bg-dark">
     <div class="container d-flex flex-column flex-md-row justify-content-between">
       <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
       <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
+     <!--  <a class="py-2 d-none d-md-inline-block" href="#" id="usuarioON"></a> -->
+      <div class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Info Usuario:
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#" id="usuarioON"></a>
+          <a class="dropdown-item" href="#" id="usuarioGoog"></a>
+          <a class="dropdown-item" href="#">Perfil</a>
+          <a class="dropdown-item" onclick="signOut();" href="./login.html">Salir</a>
+        </div>
+      </div>
     </div>
   </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 3 (Fecha de entrega: 13/09/2020) y Entrega 4 (Fecha de entrega: 20/09/2020).</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+  <main role="main">
+    <div class="container mt-5">
+        <h3 id="productName"></h3>
+        <hr class="my-3">
+        <dl>
+            <dt>Precio</dt>
+            <dd><p id="productCost"></p></dd>
+
+            <dt>Descripción</dt>
+            <dd><p id="productDescription"></p></dd>
+
+            <dt>Categoría</dt>
+            <dd><p id="productCategory"></p></dd>
+
+            <dt>Cantidad de vendidos</dt>
+            <dd><p id="productSoldCount"></p></dd>
+
+            <dt>Imágenes del producto</dt>
+            <dd>
+                <div class="row text-center text-lg-left pt-2" id="productImagesWrapper">
+                </div>
+            </dd>
+            
+            <!-- <dt>Comentarios del producto </dt>
+              <dd><a href="./product-info-comments.html">Mira los comentarios</a></dd> -->
+          <hr>
+            <dt>Productos relacionados</dt>
+            <br>
+           <!--  <dd><p id="productosRelacionados"></p></dd> -->
+           <div class="card-deck" style="max-width: 50%; height: auto;">
+            <div class="card">
+              <img class="card-img-top" id="imagenProducto"src="img/prod2.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title" id="nombreProducto"></h5>
+                <p class="card-text" id="descripcionProducto"></p>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="cantidadVendidos"></li>
+                  <li class="list-group-item" id="costoProducto"></li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="card-link">Ir al producto</a>
+                <!-- <small class="text-muted"></small> -->
+              </div>
+            </div>
+            <div class="card">
+              <img class="card-img-top" id="imagenProducto2" src="img/prod4.jpg" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title" id="nombreProducto2"></h5>
+                <p class="card-text" id="descripcionProducto2"></p>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="cantidadVendidos2"></li>
+                  <li class="list-group-item" id="costoProducto2"></li>
+                </ul>
+              </div>
+              <div class="card-footer">
+                <a href="#" class="card-link">Ir al producto</a>
+              <!--   <small class="text-muted"></small> -->
+              </div>
+            </div>
+          </div>
+          <hr>
+            <br>
+            <dt>Comentarios:</dt>
+            <br>
+            <dd>
+              <div class="container">
+                <div class="row">
+                  <div class="list-group" id="products-comments-list">
+                  </div>
+                </div>
+              </div>
+            </dd>
+        </dl>
     </div>
-  </div>
+    <br>
+    <div class="container" id="respond">
+      <h4>Deja un comentario sobre el producto:</h3>
+      <br>
+      <form id="formularioComentarios" method="POST">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Usuario (opcional):</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tu usuario">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Deseas mostrar el nombre de usuario con tu comentario?</label>
+          <select class="form-control" id="exampleFormControlSelect1" required>
+            <option>Si. Mostrar nombre de usuario</option>
+            <option>No. Mostrarme como anónimo</option>
+            <!-- <option disabled>3</option>
+            <option disabled>4</option>
+            <option disabled>5</option> -->
+          </select>
+        </div>
+        <div class="form-group">
+        <h5>Puntúa con estrellas:</h5>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="star-rating">
+                <span class="fa fa-star-o" data-rating="1"></span>
+                <span class="fa fa-star-o" data-rating="2"></span>
+                <span class="fa fa-star-o" data-rating="3"></span>
+                <span class="fa fa-star-o" data-rating="4"></span>
+                <span class="fa fa-star-o" data-rating="5"></span>
+                <input type="hidden" name="whatever1" class="rating-value" id="puntajeEstrellas" value="2.56">
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Tu comentario:</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Deja un comentario..." required></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" value="Publicar" id="botonazo">Publicar</button>
+      </form>
+    </div>
+    <br>
+    <div style="text-align: center;" class="container">
+    <marquee behavior="scroll" style="background-color: gainsboro; border: 1px solid darkgoldenrod;"loop="-1" width="30%">
+      <i>
+           <p style="color: blue">Fecha y hora actuales:</p>
+           <strong>
+            <span id="time"></span>
+           </strong>           
+      </i>
+   </marquee> 
+    </div>
+</main>
+
+
   <footer class="text-muted">
     <div class="container">
       <p class="float-right">
@@ -53,7 +209,13 @@
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/init.js"></script>
+  <script src="js/login.js"></script>
+  <script src="js/indexPrime.js"></script>
   <script src="js/product-info.js"></script>
+  <!-- <script>
+    var hoy = new Date();
+    document.getElementById("time").innerHTML = hoy.toUTCString();;
+    </script> -->
 </body>
 
 </html>

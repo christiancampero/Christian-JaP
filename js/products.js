@@ -1,29 +1,3 @@
-/*  Ejemplo del metodo array.sort
-    var puntos = [40, 100, 1, 5, 25, 10];
-    puntos.sort(function(a, b){return b-a}); // ordena los elementos del array en orden descendente; con return a-b, hago lo opuesto
-    //El primer elemento en el array (puntos[0]) ahora es el que tiene mayor valor; lo contrario pasa con return a-b
-    
-    puntos.sort(); // retorna [1, 10, 2, 21]
-    // hay que tener en cuenta que el 10 viene antes que el 2,
-    // esto porque '10' viene antes que '2' según la posición del valor Unicode.
-
-
-    var frutas = ["Banana", "Naranja", "Manzana", "Mango", "Pera"];
-    frutas.sort(); //ordeno alfabeticamente
-    frutas.reverse(); //revierto el orden (alfabetico descendente)
-
-    otro ejemplo mas practico: 
-    function compare(a, b) {
-        if (a es menor que b según criterio de ordenamiento) {
-            return -1;
-        }
-        if (a es mayor que b según criterio de ordenamiento) {
-            return 1;
-        }
-        // a debe ser igual b
-        return 0;
-    }
-*/
 
 var costoMin = undefined;
 var costoMax = undefined;
@@ -73,7 +47,7 @@ function showProductsList(array){
             ((costoMax == undefined) || (costoMax != undefined && parseInt(product.cost) <= costoMax))) {
 
         htmlContentToAppend += `
-        <a href="product-info.html" class="list-group-item list-group-item-action">
+        <a href="product-info.html?name=`+ product.name +`" class="list-group-item list-group-item-action">
             <div class="row">
                 <div class="col-3">
                     <img src="` + product.imgSrc + `" alt="` + product.description + `" class="img-thumbnail">
@@ -206,6 +180,16 @@ document.addEventListener("DOMContentLoaded", function(e){
         showProductsList(productsArray); //se muestra el array de productos ordenado
     });
 
+    /* document.getElementById("product-list-container").addEventListener('click', function(){
+
+        //const urlN = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json");
+        const urlP = new URL("./product-info.html");
+        urlP.searchParams.set("name", "Chevrolet Onix Joy");
+        //let nombre = String(urlN.searchParams.get('name'));
+        window.location.replace(urlP);
+
+    }); */
+    
 });
 
 
@@ -228,23 +212,13 @@ $(document).ready(function(){
     return new RegExp(busqueda, "i").test($(el).text());
 };
 
-/* function buscarTiempoReal(productsArray){
+/*function buscarTiempoReal(){
 
     var entradaDatos = document.getElementById("barraBusqueda");
-    
-        var filtroL = entradaDatos.value; 
-       
+    var filtroL;
+    filtroL = entradaDatos.value; 
+     
 
-        for(var i = 0; i < productsArray.length; i++){
-            
-            resultadosFiltro = array.filter(function(x){
-                if (x.name == keyup ) {
-                    x.style.display = "none";
-                } else {
-                    x.style.display = "block";
-                }
-            })
-        }
-
-} */
+    return filtroL;
+}*/
 
