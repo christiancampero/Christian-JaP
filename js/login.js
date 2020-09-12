@@ -163,9 +163,10 @@ function signOut() {
 
 function salirYBorrar() {
 		signOut();
-		localStorage.clear();
-		window.location = "./login.html";
+		Storage.clear();
+		location.assign("./login.html");
 }
+document.getElementById("saliendo").onclick = salirYBorrar();
 
 /*function verificarUsuarioLoggeado()
 {
@@ -223,13 +224,13 @@ function autenticar(){
 				localStorage.setItem('quienIngreso', JSON.stringify(quienIngreso));
 				document.getElementById('un').value = "";
 				document.getElementById('pw').value = "";
-				location.replace("./index.html"); //redirige a index cuando el usuario ingresa 
-				break;
-			} else if(un.length === 0) {
+				location.assign("./index.html"); //redirige a index cuando el usuario ingresa 
+				//break;
+			} /* else if(un.length === 0) {
 				alert("Debes colocar algo en nombre de usuario");
 			} else if(pw.length === 0) {
 				alert("Debes colocar algo en contraseña");
-			}
+			} */
 			if(i==usuarArray.length-1 || usuarArray.length==0){
 				console.log('trabajando...')
 				solucionarProblemas(un, pw);
@@ -251,7 +252,7 @@ function solucionarProblemas(un, pw){
 			if(un == usuarArray[j].un){
 				alert("Contraseña incorrecta");
 				document.getElementById('pw').value = "";
-				break;
+				//break;
 			};
 			if(j==usuarArray.length-1 || usuarArray.length==0){
 				alert("No se encontro al usuario. Clickea en crear una cuenta");
