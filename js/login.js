@@ -159,7 +159,12 @@ function signOut() {
 		  console.log('El usuario salio.');
 		  alert("Te has desconectado de tu cuenta de google!");
 		});
+}
+
+function salirYBorrar() {
+		signOut();
 		localStorage.clear();
+		window.location = "./login.html";
 }
 
 /*function verificarUsuarioLoggeado()
