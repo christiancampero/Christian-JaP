@@ -284,7 +284,7 @@ $(document).ready(function() {
 function evaluarUsuario() {
     if(document.getElementById("exampleFormControlSelect1").value === "Si. Mostrar nombre de usuario")
     {
-        JSON.parse(localStorage.getItem('quienIngreso'));
+        return JSON.parse(localStorage.getItem('quienIngreso'));
 
     } else {
         return "Anónimo";
