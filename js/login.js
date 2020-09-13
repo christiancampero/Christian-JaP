@@ -162,10 +162,6 @@ function signOut() {
 		localStorage.clear();
 }
 
-document.getElementById("saliendo").addEventListener("click", function(){
-
-	signOut();
-});
 
 /*function verificarUsuarioLoggeado()
 {
@@ -199,10 +195,7 @@ console.log(usuarArray);
 
 //Cuando el boton de "ingresar" es clickeado, llama a la función para obtener el id y password ingresados
 //y checkea la autenticación del usuario
-document.getElementById("entrar").addEventListener("click", function(){
-	
-	autenticar()
-});
+
 
 //función para autenticar el usuario 
 function autenticar(){
@@ -226,7 +219,7 @@ function autenticar(){
 				localStorage.setItem('quienIngreso', JSON.stringify(quienIngreso));
 				document.getElementById('un').value = "";
 				document.getElementById('pw').value = "";
-				window.location.replace("./index.html"); //redirige a index cuando el usuario ingresa 
+				location.replace("./index.html"); //redirige a index cuando el usuario ingresa 
 			} /* else if(un.length === 0) {
 				alert("Debes colocar algo en nombre de usuario");
 			} else if(pw.length === 0) {
@@ -237,7 +230,7 @@ function autenticar(){
 				solucionarProblemas(un, pw);
 			}
 		}
-	}else{//ingresa en la primera vez que carga para verificar que no hay usuarios en el array
+	} else {//ingresa en la primera vez que carga para verificar que no hay usuarios en el array
 		alert("No se encontro al usuario. Por favor clickea en crear una cuenta");
 		document.getElementById('un').value = "";
 		document.getElementById('pw').value = "";
@@ -265,7 +258,18 @@ function solucionarProblemas(un, pw){
 
 
 
-/* document.addEventListener("DOMContentLoaded", function(e){
+document.addEventListener("DOMContentLoaded", function(e){
 
+	e.preventDefault();
 
-}); */
+	document.getElementById("entrar").addEventListener("click", function(){
+	
+		autenticar()
+	});
+
+	document.getElementById("saliendo").addEventListener("click", function(){
+
+		signOut();
+	});
+
+});
