@@ -213,7 +213,7 @@ function agregarNuevoComentario(commentsArray){
     
     var nuevoComentario = {
 
-        score: document.getElementById('puntajeEstrellas').value, //document.getElementById('exampleFormControlSelect1').value,
+        score: resultadoEstrellas(),  //document.getElementById('puntajeEstrellas').value, 
         description: document.getElementById('exampleFormControlTextarea1').value,
         user:  evaluarUsuario(),
         dateTime: dateTime2,
@@ -260,7 +260,7 @@ document.getElementById("time").innerHTML = dateTime2; //.toUTCString();;
 
 
 //star rating dinamico
-var $star_rating = $('.star-rating .fa');
+/* var $star_rating = $('.star-rating .fa');
 
 var SetRatingStar = function() {
   return $star_rating.each(function() {
@@ -279,7 +279,7 @@ $star_rating.on('click', function() {
 
 SetRatingStar();
 $(document).ready(function() {
-});
+});*/
 
 function evaluarUsuario() {
     if(document.getElementById("exampleFormControlSelect1").value === "Si. Mostrar nombre de usuario")
@@ -289,4 +289,29 @@ function evaluarUsuario() {
     } else {
         return "Anónimo";
     }
+}
+
+//funciones para efecto de las estrellas y para obtener el valor de las mismas 
+var contador;
+
+function starmark(item)
+{
+    contador = item.id[0];
+    sessionStorage.starRating = contador;
+    var subid= item.id.substring(1);
+    
+    for(var i=0;i<5;i++)
+    {
+        if(i < contador)
+        {
+            document.getElementById((i+1)+subid).style.color="#1E90FF";
+        } else {
+            document.getElementById((i+1)+subid).style.color="black";
+        }
+    }
+}
+
+function resultadoEstrellas()
+{
+    return contador;
 }

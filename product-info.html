@@ -8,8 +8,13 @@
   <meta name="description" content="">
   <title>eMercado - Todo lo que busques está aquí</title>
 
+  <link rel="stylesheet" href="css/estrellas.css">
+  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> <!-- estilos star rating -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- estilos star rating -->
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -17,20 +22,41 @@
   <link href="css/styles.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-    
     @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css");
-      i[class^=star-]:after{font: normal normal 16px/1 FontAwesome;}
-      .star-1:after{content:"\f005\f006\f006\f006\f006";}
-      .star-2:after{content:"\f005\f005\f006\f006\f006";}
-      .star-3:after{content:"\f005\f005\f005\f006\f006";}
-      .star-4:after{content:"\f005\f005\f005\f005\f006";}
-      .star-5:after{content:"\f005\f005\f005\f005\f005";}
 
-      .star-rating {
+    i[class^=star-]:after {
+      font: normal normal 16px/1 FontAwesome;
+    }
+
+    .star-1:after {
+      content: "\f005\f006\f006\f006\f006";
+    }
+
+    .star-2:after {
+      content: "\f005\f005\f006\f006\f006";
+    }
+
+    .star-3:after {
+      content: "\f005\f005\f005\f006\f006";
+    }
+
+    .star-4:after {
+      content: "\f005\f005\f005\f005\f006";
+    }
+
+    .star-5:after {
+      content: "\f005\f005\f005\f005\f005";
+    }
+
+    .checked {
+      color:#1E90FF;
+    }
+
+    /* .star-rating {
         line-height:32px;
         font-size:1.25em;
       }
-      .star-rating .fa-star{color:darkblue;}
+      .star-rating .fa-star{color:darkblue;} */
   </style>
 </head>
 
@@ -42,9 +68,10 @@
       <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
       <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
       <a class="py-2 d-none d-md-inline-block" href="cart.html">Mi carrito</a>
-     <!--  <a class="py-2 d-none d-md-inline-block" href="#" id="usuarioON"></a> -->
+      <!--  <a class="py-2 d-none d-md-inline-block" href="#" id="usuarioON"></a> -->
       <div class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Info Usuario:
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -58,101 +85,102 @@
   </nav>
   <main role="main">
     <div class="container mt-5">
-        <h3 id="productName"></h3>
-        <hr class="my-3">
-        <dl>
-            <dt>Precio</dt>
-            <dd><p id="productCost"></p></dd>
+      <h3 id="productName"></h3>
+      <hr class="my-3">
+      <dl>
+        <dt>Precio</dt>
+        <dd>
+          <p id="productCost"></p>
+        </dd>
 
-            <dt>Descripción</dt>
-            <dd><p id="productDescription"></p></dd>
+        <dt>Descripción</dt>
+        <dd>
+          <p id="productDescription"></p>
+        </dd>
 
-            <dt>Categoría</dt>
-            <dd><p id="productCategory"></p></dd>
+        <dt>Categoría</dt>
+        <dd>
+          <p id="productCategory"></p>
+        </dd>
 
-            <dt>Cantidad de vendidos</dt>
-            <dd><p id="productSoldCount"></p></dd>
+        <dt>Cantidad de vendidos</dt>
+        <dd>
+          <p id="productSoldCount"></p>
+        </dd>
 
-            <dt>Imágenes del producto</dt>
-            <dd>
-                <div class="row text-center text-lg-left pt-2" id="productImagesWrapper">
-                </div>
-            </dd>
-            
-            <!-- <dt>Comentarios del producto </dt>
-              <dd><a href="./product-info-comments.html">Mira los comentarios</a></dd> -->
-          <hr>
-            <dt>Productos relacionados</dt>
-            <br>
-           <!--  <dd><p id="productosRelacionados"></p></dd> -->
-           <div class="card-deck" style="max-width: 50%; height: auto;">
-            <div class="card">
-              <img class="card-img-top" id="imagenProducto"src="img/prod2.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title" id="nombreProducto"></h5>
-                <p class="card-text" id="descripcionProducto"></p>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" id="cantidadVendidos"></li>
-                  <li class="list-group-item" id="costoProducto"></li>
-                </ul>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="card-link">Ir al producto</a>
-                <!-- <small class="text-muted"></small> -->
-              </div>
+        <dt>Imágenes del producto</dt>
+        <dd>
+          <div class="row text-center text-lg-left pt-2" id="productImagesWrapper">
+          </div>
+        </dd>
+        <hr>
+        <dt>Productos relacionados</dt>
+        <br>
+        <div class="card-deck" style="max-width: 50%; height: auto;">
+          <div class="card">
+            <img class="card-img-top" id="imagenProducto" src="img/prod2.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title" id="nombreProducto"></h5>
+              <p class="card-text" id="descripcionProducto"></p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="cantidadVendidos"></li>
+                <li class="list-group-item" id="costoProducto"></li>
+              </ul>
             </div>
-            <div class="card">
-              <img class="card-img-top" id="imagenProducto2" src="img/prod4.jpg" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title" id="nombreProducto2"></h5>
-                <p class="card-text" id="descripcionProducto2"></p>
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" id="cantidadVendidos2"></li>
-                  <li class="list-group-item" id="costoProducto2"></li>
-                </ul>
-              </div>
-              <div class="card-footer">
-                <a href="#" class="card-link">Ir al producto</a>
+            <div class="card-footer">
+              <a href="#" class="card-link">Ir al producto</a>
+            </div>
+          </div>
+          <div class="card">
+            <img class="card-img-top" id="imagenProducto2" src="img/prod4.jpg" alt="Card image cap">
+            <div class="card-body">
+              <h5 class="card-title" id="nombreProducto2"></h5>
+              <p class="card-text" id="descripcionProducto2"></p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="cantidadVendidos2"></li>
+                <li class="list-group-item" id="costoProducto2"></li>
+              </ul>
+            </div>
+            <div class="card-footer">
+              <a href="#" class="card-link">Ir al producto</a>
               <!--   <small class="text-muted"></small> -->
+            </div>
+          </div>
+        </div>
+        <hr>
+        <br>
+        <dt>Comentarios:</dt>
+        <br>
+        <dd>
+          <div class="container">
+            <div class="row">
+              <div class="list-group" id="products-comments-list">
               </div>
             </div>
           </div>
-          <hr>
-            <br>
-            <dt>Comentarios:</dt>
-            <br>
-            <dd>
-              <div class="container">
-                <div class="row">
-                  <div class="list-group" id="products-comments-list">
-                  </div>
-                </div>
-              </div>
-            </dd>
-        </dl>
+        </dd>
+      </dl>
     </div>
     <br>
     <div class="container" id="respond">
       <h4>Deja un comentario sobre el producto:</h3>
-      <br>
-      <form id="formularioComentarios" method="POST">
-        <div class="form-group">
-          <label for="exampleFormControlInput1">Usuario (opcional):</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tu usuario">
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlSelect1">Deseas mostrar el nombre de usuario con tu comentario?</label>
-          <select class="form-control" id="exampleFormControlSelect1" required>
-            <option>Si. Mostrar nombre de usuario</option>
-            <option>No. Mostrarme como anónimo</option>
-            <!-- <option disabled>3</option>
-            <option disabled>4</option>
-            <option disabled>5</option> -->
-          </select>
-        </div>
-        <div class="form-group">
-        <h5>Puntúa con estrellas:</h5>
-        <div class="container">
+        <br>
+        <form id="formularioComentarios" method="POST">
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Usuario (opcional):</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Tu usuario">
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Deseas mostrar el nombre de usuario con tu comentario?</label>
+            <select class="form-control" id="exampleFormControlSelect1" required>
+              <option>Si. Mostrar nombre de usuario</option>
+              <option>No. Mostrarme como anónimo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="container">
+              <h5>Puntúa el producto:</h5>
+              <!--  <div class="container">
           <div class="row">
             <div class="col-lg-12">
               <div class="star-rating">
@@ -165,28 +193,46 @@
               </div>
             </div>
           </div>
-        </div>
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Tu comentario:</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Deja un comentario..." required></textarea>
-        </div>
-        <button type="button" class="btn btn-primary" value="Publicar" id="botonazo">Publicar</button>
-      </form>
+        </div> -->
+              <br>
+              <div class="container">
+                <div class="row">
+                  <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one"
+                    style="font-size:40px;cursor:pointer;" class="fa fa-star checked"></span>
+                  <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one"
+                    style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+                  <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one"
+                    style="font-size:40px;cursor:pointer;" class="fa fa-star "></span>
+                  <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one"
+                    style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                  <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one"
+                    style="font-size:40px;cursor:pointer;" class="fa fa-star"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Tu comentario:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Deja un comentario..."
+              required></textarea>
+          </div>
+          <button type="button" class="btn btn-primary" value="Publicar" id="botonazo">Publicar</button>
+        </form>
     </div>
     <br>
     <div style="text-align: center;" class="container">
-    <marquee behavior="scroll" style="background-color: gainsboro; border: 1px solid darkgoldenrod;"loop="-1" width="30%">
-      <i>
-           <p style="color: blue">Fecha y hora actuales:</p>
-           <strong>
+      <marquee behavior="scroll" style="background-color: gainsboro; border: 1px solid darkgoldenrod;" loop="-1"
+        width="30%">
+        <i>
+          <p style="color: blue">Fecha y hora actuales:</p>
+          <strong>
             <span id="time"></span>
-           </strong>           
-      </i>
-   </marquee> 
+          </strong>
+        </i>
+      </marquee>
     </div>
-</main>
+  </main>
 
 
   <footer class="text-muted">
@@ -212,10 +258,6 @@
   <script src="js/login.js"></script>
   <script src="js/indexPrime.js"></script>
   <script src="js/product-info.js"></script>
-  <!-- <script>
-    var hoy = new Date();
-    document.getElementById("time").innerHTML = hoy.toUTCString();;
-    </script> -->
 </body>
 
 </html>
