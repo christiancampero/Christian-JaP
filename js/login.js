@@ -159,9 +159,13 @@ function signOut() {
 		  console.log('El usuario salio.');
 		  alert("Te has desconectado de tu cuenta de google!");
 		});
+		localStorage.clear();
 }
 
-document.getElementById("saliendo").onclick = signOut();
+document.getElementById("saliendo").addEventListener("click", function(){
+
+	signOut();
+});
 
 /*function verificarUsuarioLoggeado()
 {
@@ -195,7 +199,10 @@ console.log(usuarArray);
 
 //Cuando el boton de "ingresar" es clickeado, llama a la función para obtener el id y password ingresados
 //y checkea la autenticación del usuario
-document.getElementById("entrar").onclick = function(){autenticar()};
+document.getElementById("entrar").addEventListener("click", function(){
+	
+	autenticar()
+});
 
 //función para autenticar el usuario 
 function autenticar(){
