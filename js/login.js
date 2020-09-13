@@ -214,6 +214,7 @@ function autenticar(){
 				document.getElementById('un').value = "";
 				document.getElementById('pw').value = "";
 				location.replace("./index.html"); //redirige a index cuando el usuario ingresa 
+				break;
 			} /* else if(un.length === 0) {
 				alert("Debes colocar algo en nombre de usuario");
 			} else if(pw.length === 0) {
@@ -240,7 +241,7 @@ function solucionarProblemas(un, pw){
 			if(un == usuarArray[j].un){
 				alert("Contraseña incorrecta");
 				document.getElementById('pw').value = "";
-				//break;
+				break;
 			};
 			if(j==usuarArray.length-1 || usuarArray.length==0){
 				alert("No se encontro al usuario. Clickea en crear una cuenta");

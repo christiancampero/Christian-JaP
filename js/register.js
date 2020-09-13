@@ -95,7 +95,7 @@ if(JSON.parse(localStorage.getItem('arrayCompartido')) != null){
 console.log(usuarArray);
 
 
-document.getElementById('registNuevo').onclick = function(){verificarNuevo()};
+//document.getElementById('registNuevo').onclick = function(){verificarNuevo()};
 
 //funcion para verificar al nuevo usario
 function verificarNuevo(){
@@ -155,3 +155,15 @@ function agregarUsuario(){
 
 	alert("Tu nombre de usuario y contraseña han sido añadidos perfectamente! Por favor clickea en el enlace de regresar a ingreso");
 };
+
+
+document.addEventListener("DOMContentLoaded", function(e){
+
+	e.preventDefault();
+
+	document.getElementById("registNuevo").addEventListener("click", function(){
+	
+		verificarNuevo();
+	});
+
+});
