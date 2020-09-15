@@ -4,11 +4,11 @@
 function infoUSuarioBarra() {
 
     var nuevito = JSON.parse(localStorage.getItem('quienIngreso'));
-    document.getElementById("usuarioON").innerHTML = nuevito + `<p>actualmente conectado/a</p>`; 
+    document.getElementById("dropdownMenuButton").innerHTML = 'Usuario:  ' + nuevito; 
 
     var nuevitoGoog = JSON.parse(localStorage.getItem('entidadUsuario'));
     
-    document.getElementById("usuarioGoog").innerHTML = nuevitoGoog.Name + `<p>conectado/a con cuenta Google</p>`;
+    document.getElementById("usuarioGoog").innerHTML = nuevitoGoog.Name +" " + "(Gmail)";
 
 }
 
