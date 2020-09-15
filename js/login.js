@@ -263,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function(e){
 	});
 
 	document.getElementById("saliendo").addEventListener("click", function(){
-
+		localStorage.clear();
 		signOut();
 	});
 
