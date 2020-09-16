@@ -28,31 +28,16 @@ function mostrarDetallesProducto(nombreAt2, product) {
     let productSoldCountHTML = document.getElementById("productSoldCount");
     let productCategoryHTML = document.getElementById("productCategory");
     let productCostHTML = document.getElementById("productCost");
-    /* let relatedProductsHTML = document.getElementById("productosRelacionados"); */
+    
 
-    productNameHTML.innerHTML = nombreAt2; //product.name; 
-    productDescriptionHTML.innerHTML = product.description; //descripción
-    productSoldCountHTML.innerHTML = product.soldCount; // cantidad de vendidos
-    productCategoryHTML.innerHTML = '<a href="category-info.html">' + product.category + '</a>'; // categoría
-    productCostHTML.innerHTML = product.currency + " " + product.cost;  // costo o precio producto
-   /*  relatedProductsHTML.innerHTML = '<a href="product-info.html">' + product.relatedProducts + '</a>'; */
+    productNameHTML.innerHTML = nombreAt2; 
+    productDescriptionHTML.innerHTML = product.description; 
+    productSoldCountHTML.innerHTML = product.soldCount; 
+    productCategoryHTML.innerHTML = '<a href="category-info.html">' + product.category + '</a>';
+    productCostHTML.innerHTML = product.currency + " " + product.cost;  
    
 
 }
-
-/* document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCT_INFO_URL).then(function(resultObj){
-        if (resultObj.status === "ok")
-        {
-            product = resultObj.data;
-
-          
-            mostrarDetallesProducto(product);
-            
-            mostrarGaleriaImagenes(product.images); //se muestran las imagenes del producto
-        }
-    });
-});  */
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -94,7 +79,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(product);
             
             mostrarDetallesProducto(nombreAt2, product);  //muestro información del producto en cuestión
-            mostrarGaleriaImagenes(product.images); // muestro de forma ordenada la galería de imagenes referentes al producto
+            anexarGaleria(product.images);
+            //mostrarGaleriaImagenes(product.images); // muestro de forma ordenada la galería de imagenes referentes al producto
 
         } else {
             console.log("Error:" + Http.status);
@@ -188,20 +174,6 @@ function mostrarComentariosOrdenados(array) {
     }
 }
 
-
-/* document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
-        if (resultObj.status === "ok")
-        {
-            commentsArray = resultObj.data; //recibo los comentarios
-
-            mostrarComentariosOrdenados(commentsArray); //paso el array de comentarios a una función que los ordena
-          
-
-        }
-    });
-});  */
-
 //obtener fecha y hora actuales
 var hoy = new Date();
 var date1 = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
@@ -213,7 +185,7 @@ function agregarNuevoComentario(commentsArray){
     
     var nuevoComentario = {
 
-        score: resultadoEstrellas(),  //document.getElementById('puntajeEstrellas').value, 
+        score: resultadoEstrellas(),  
         description: document.getElementById('exampleFormControlTextarea1').value,
         user:  evaluarUsuario(),
         dateTime: dateTime2,
@@ -223,7 +195,7 @@ function agregarNuevoComentario(commentsArray){
    
     sessionStorage.setItem('arrayComentarioPaso', JSON.stringify(commentsArray));
 
-    //return arrayComentariosAlt;
+    
 } 
 
 
@@ -235,10 +207,10 @@ function mostrarRelacionados(prodRel){
     let costoProductoHTML = document.getElementById("costoProducto");
     
 
-    nombreProductoHTML.innerHTML = prodRel[1].name; //product.name; 
-    descripcionProductoHTML.innerHTML = prodRel[1].description; //descripción
-    cantidadVendidosHTML.innerHTML = "Cantidad vendidos:  " + prodRel[1].soldCount; // cantidad de vendidos
-    costoProductoHTML.innerHTML = "Costo:  " + prodRel[1].currency + " " + prodRel[1].cost;  // costo o precio producto
+    nombreProductoHTML.innerHTML = prodRel[1].name; 
+    descripcionProductoHTML.innerHTML = prodRel[1].description; 
+    cantidadVendidosHTML.innerHTML = "Cantidad vendidos:  " + prodRel[1].soldCount; 
+    costoProductoHTML.innerHTML = "Costo:  " + prodRel[1].currency + " " + prodRel[1].cost;  
    
 
     let nombreProducto2HTML  = document.getElementById("nombreProducto2");
@@ -248,15 +220,15 @@ function mostrarRelacionados(prodRel){
     
 
 
-    nombreProducto2HTML.innerHTML = prodRel[3].name; //product.name; 
-    descripcionProducto2HTML.innerHTML = prodRel[3].description; //descripción
-    cantidadVendidos2HTML.innerHTML = "Cantidad vendidos: " + prodRel[3].soldCount; // cantidad de vendidos
-    costoProducto2HTML.innerHTML = "Costo: " + prodRel[3].currency + " " + prodRel[3].cost;  // costo o precio producto
+    nombreProducto2HTML.innerHTML = prodRel[3].name;  
+    descripcionProducto2HTML.innerHTML = prodRel[3].description; 
+    cantidadVendidos2HTML.innerHTML = "Cantidad vendidos: " + prodRel[3].soldCount; 
+    costoProducto2HTML.innerHTML = "Costo: " + prodRel[3].currency + " " + prodRel[3].cost;  
    
 } 
 
 //Para mostrar la fecha y hora
-document.getElementById("time").innerHTML = dateTime2; //.toUTCString();;
+document.getElementById("time").innerHTML = dateTime2; 
 
 
 //star rating dinamico
@@ -315,3 +287,21 @@ function resultadoEstrellas()
 {
     return contador;
 }
+
+
+/* function anexarGaleria(array){
+
+    let htmlContentToAppend = "";
+
+    for(let i = 0; i < array.length; i++){
+        let imageSrc = array[i];
+
+        htmlContentToAppend += `
+        <div class="carousel-item active">
+            <img class="d-block img-fluid" src="`+imageSrc+`" alt="`+i+`"></div>
+        </div>
+        `
+
+        document.getElementById("carru").innerHTML = htmlContentToAppend;
+    }
+} */
