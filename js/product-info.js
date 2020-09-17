@@ -1,5 +1,6 @@
 
 let product = [];
+let commentsArray = [];
 
 function mostrarGaleriaImagenes(array){
 
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let nombreAt2 = decodeURI((window.location.search).substring(1).replace("name=", ""));
 
     if(!window.location.search) { //si no retorna el query...
-        nombreAuto = "Chevrolet Onix Joy";
+        nombreAt2 = "Chevrolet Onix Joy";
     }
     
     //petición tipo AJAX
@@ -305,3 +306,4 @@ function resultadoEstrellas()
         document.getElementById("carru").innerHTML = htmlContentToAppend;
     }
 } */
+

@@ -38,3 +38,59 @@
   color: #c59b08;
 }
 
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css");
+
+i[class^=star-]:after {
+  font: normal normal 16px/1 FontAwesome;
+}
+
+.star-1:after {
+  content: "\f005\f006\f006\f006\f006";
+}
+
+.star-2:after {
+  content: "\f005\f005\f006\f006\f006";
+}
+
+.star-3:after {
+  content: "\f005\f005\f005\f006\f006";
+}
+
+.star-4:after {
+  content: "\f005\f005\f005\f005\f006";
+}
+
+.star-5:after {
+  content: "\f005\f005\f005\f005\f005";
+}
+
+.checked {
+  color:#1E90FF;
+}
+
+.carousel {
+  margin-bottom: 0;
+  padding: 0 40px 30px 40px;
+}
+
+#myCarousel .list-inline {
+white-space:nowrap;
+overflow-x:auto;
+}
+
+#myCarousel .carousel-indicators {
+    position: static;
+    left: initial;
+    width: initial;
+    margin-left: initial;
+}
+
+#myCarousel .carousel-indicators > li {
+    width: initial;
+    height: initial;
+    text-indent: initial;
+}
+
+#myCarousel .carousel-indicators > li.active img {
+    opacity: 0.7;
+}
