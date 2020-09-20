@@ -43,17 +43,12 @@ function mostrarDetallesProducto(nombreAt2, product) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    /*const urlGit = new URL("https://christiancampero.github.io/Christian-JaP/product-info.html")
-    urlGit.searchParams.append("name", "Chevrolet Onix Joy");*/
-
-    const url = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json"); //para api
-    //url.searchParams.append("name", "Chevrolet Onix Joy");
-
-    //let urlN = new URL("file:///C:/Users/chris/Desktop/Obligatorio%20semana%205/product-info.html"); //para archivo local
-    //urlN.searchParams.append("name", "Chevrolet Onix Joy"); 
+    const url = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json"); 
+    
+  
 
     console.log(decodeURI(window.location.search.substring(1)));
-    //let nombreAuto = decodeURI(window.location.search.substring(1));
+  
     let nombreAt2 = decodeURI((window.location.search).substring(1).replace("name=", ""));
 
     if(!window.location.search) { //si no retorna el query...
@@ -62,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     //petición tipo AJAX
 
-    //e.preventDefault();
     const Http = new XMLHttpRequest(); //con este metodo creo un nuevo objeto XMLHttpRequest
 
     Http.open("GET", url, true); //peticion asyncrona
@@ -80,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(product);
             
             mostrarDetallesProducto(nombreAt2, product);  //muestro información del producto en cuestión
-            anexarGaleria(product.images);
             //mostrarGaleriaImagenes(product.images); // muestro de forma ordenada la galería de imagenes referentes al producto
 
         } else {
@@ -136,19 +129,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById("exampleFormControlInput1").placeholder = JSON.parse(localStorage.getItem('quienIngreso'));
 
+   
+            
+
 });
 
     
-// está es una alternativa a URL.searchParams 
-
-/*function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};*/ 
-
-
 function mostrarComentariosOrdenados(array) {
     let htmlContentToAppend = "";
     for(let i = 0; i < array.length; i++){
@@ -159,7 +145,7 @@ function mostrarComentariosOrdenados(array) {
         <a href="#" class="list-group-item list-group-item-action" style="max-width: 60%; height: auto;">
             <div class="row">
                 <div class="col-2">
-                <img src="avatar2.png" alt="avatar2" class="img-thumbnail">
+                <img src="img/avatar2.png" alt="avatar2" class="img-thumbnail">
                 </div>
                 <div class="col">
                     <div class="d-flex w-100 justify-content-between">
@@ -232,28 +218,6 @@ function mostrarRelacionados(prodRel){
 document.getElementById("time").innerHTML = dateTime2; 
 
 
-//star rating dinamico
-/* var $star_rating = $('.star-rating .fa');
-
-var SetRatingStar = function() {
-  return $star_rating.each(function() {
-    if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
-      return $(this).removeClass('fa-star-o').addClass('fa-star');
-    } else {
-      return $(this).removeClass('fa-star').addClass('fa-star-o');
-    }
-  });
-};
-
-$star_rating.on('click', function() {
-  $star_rating.siblings('input.rating-value').val($(this).data('rating'));
-  return SetRatingStar();
-});
-
-SetRatingStar();
-$(document).ready(function() {
-});*/
-
 function evaluarUsuario() {
     if(document.getElementById("exampleFormControlSelect1").value === "Si. Mostrar nombre de usuario")
     {
@@ -290,20 +254,49 @@ function resultadoEstrellas()
 }
 
 
-/* function anexarGaleria(array){
 
-    let htmlContentToAppend = "";
+//carrusel 
+function shiftLeft() {
+    const boxes = document.querySelectorAll(".box");
+    const tmpNode = boxes[0];
+    boxes[0].className = "box move-out-from-left";
 
-    for(let i = 0; i < array.length; i++){
-        let imageSrc = array[i];
+    setTimeout(function() {
+        if (boxes.length > 5) {
+            tmpNode.classList.add("box--hide");
+            boxes[5].className = "box move-to-position5-from-left";
+        }
+        boxes[1].className = "box move-to-position1-from-left";
+        boxes[2].className = "box move-to-position2-from-left";
+        boxes[3].className = "box move-to-position3-from-left";
+        boxes[4].className = "box move-to-position4-from-left";
+        boxes[0].remove();
 
-        htmlContentToAppend += `
-        <div class="carousel-item active">
-            <img class="d-block img-fluid" src="`+imageSrc+`" alt="`+i+`"></div>
-        </div>
-        `
+        document.querySelector(".cards__container").appendChild(tmpNode);
 
-        document.getElementById("carru").innerHTML = htmlContentToAppend;
-    }
-} */
+    }, 500);
 
+}
+
+function shiftRight() {
+    const boxes = document.querySelectorAll(".box");
+    boxes[4].className = "box move-out-from-right";
+    setTimeout(function() {
+        const noOfCards = boxes.length;
+        if (noOfCards > 4) {
+            boxes[4].className = "box box--hide";
+        }
+
+        const tmpNode = boxes[noOfCards - 1];
+        tmpNode.classList.remove("box--hide");
+        boxes[noOfCards - 1].remove();
+        let parentObj = document.querySelector(".cards__container");
+        parentObj.insertBefore(tmpNode, parentObj.firstChild);
+        tmpNode.className = "box move-to-position1-from-right";
+        boxes[0].className = "box move-to-position2-from-right";
+        boxes[1].className = "box move-to-position3-from-right";
+        boxes[2].className = "box move-to-position4-from-right";
+        boxes[3].className = "box move-to-position5-from-right";
+    }, 500);
+
+}

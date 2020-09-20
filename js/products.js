@@ -67,9 +67,6 @@ function showProductsList(array){
     }
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCTS_URL).then(function(resultObj){
         if (resultObj.status === "ok")
@@ -126,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     });
 
     document.getElementById("rangoFiltroDefinido2").addEventListener("click", function(){
-       // productsArray = ordenarProductos(ordenarPorRangoDef2, productsArray); //se ordenan los product por costo descendente
+       
        costoMin = 13500;
        costoMax = 15200;
 
@@ -180,15 +177,6 @@ document.addEventListener("DOMContentLoaded", function(e){
         showProductsList(productsArray); //se muestra el array de productos ordenado
     });
 
-    /* document.getElementById("product-list-container").addEventListener('click', function(){
-
-        //const urlN = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json");
-        const urlP = new URL("./product-info.html");
-        urlP.searchParams.set("name", "Chevrolet Onix Joy");
-        //let nombre = String(urlN.searchParams.get('name'));
-        window.location.replace(urlP);
-
-    }); */
     
 });
 
@@ -196,14 +184,11 @@ document.addEventListener("DOMContentLoaded", function(e){
 $(document).ready(function(){
     $("#barraBusqueda").on("keyup", function() {
       var valor = $(this).val();
-        //$("#product-list-container").map(function() {
+        
         showProductsList(productsArray); 
-        //$("#product-list-container *").show();
+  
           if(valor) $("#product-list-container *").not(":containsNoCase(" + valor + ")").hide();
             else $("#product-list-container *").show();
-        
-        
-      //});
     });
   });
   $.expr[":"].containsNoCase = function(el, i, m) {
@@ -211,14 +196,3 @@ $(document).ready(function(){
     if (!busqueda) return false;
     return new RegExp(busqueda, "i").test($(el).text());
 };
-
-/*function buscarTiempoReal(){
-
-    var entradaDatos = document.getElementById("barraBusqueda");
-    var filtroL;
-    filtroL = entradaDatos.value; 
-     
-
-    return filtroL;
-}*/
-
