@@ -2,9 +2,11 @@
 const urlCarrito = "https://japdevdep.github.io/ecommerce-api/cart/654.json";
 const urlMensaje = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 const currencyRates = "https://api.currencyfreaks.com/latest?apikey=cc9ff3a12c0d485583362e12d645dee2";
+const allProducts = "https://japdevdep.github.io/ecommerce-api/product/all.json";
 
 
 var articulos = {};
+var productos = {};
 let porcentajeEnvio = 0.15;
 var contador = 0;
 var subTotal = 0;
@@ -96,9 +98,10 @@ function mostrarArticulos(array){
             <td><span class="cambiador" id="precio${i}" style="font-weight:bold;">${costoUnitarioProducto * element.count}</span></td>
         </tr>
         `;
-        Total += element.count * costoUnitarioProducto;
     }
     document.getElementById("mostrarArticulos").innerHTML = htmlContentToAppend;
+
+    actualizarIntermedio();
 
     for(let i = 0; i < array.length; i++) {
     
@@ -133,10 +136,17 @@ document.addEventListener("DOMContentLoaded", function(){
         
         articulos = respuesta.all.articles;
         mostrarArticulos(articulos);
-
-        tasasCambio();
+        actualizarCostosTotales();
+        
+        obtenerJSONData(allProducts).then(result => {
+ 
+            productos = result.all;
+            generarNuevoProducto(productos, articulos);
+            mostrarArticulos(articulos)
+            actualizarCostosTotales();
+        });
     });
-
+    
     document.getElementById("radio-premium").addEventListener("change", function(){
         porcentajeEnvio = 0.15;
        actualizarCostosTotales();
@@ -224,29 +234,27 @@ document.addEventListener("DOMContentLoaded", function(){
             infoFaltante = true;
         }    
 
-        if (!infoFaltante)
-        {
  
-           obtenerJSONData(urlMensaje).then(respuesta => {
+        obtenerJSONData(urlMensaje).then(respuesta => {
                 
-                let mensajeAMostrarHTML = document.getElementById("resultSpan");
-                let mensajeAMostrar = "";
+            let mensajeAMostrarHTML = document.getElementById("exampleModalLongTitle");
+            let mensajeAMostrar = "";
 
-                if (respuesta.status === 'ok')
-                {
-                    mensajeAMostrar = respuesta.all.msg;
-                }
-                else if (respuesta.status === 'error')
-                {
-                    mensajeAMostrar = mensaje_error;
-                }
+            if(infoFaltante == true) {
 
-                bootbox.alert(mensajeAMostrar, null);
-            });
+                mensajeAMostrar = mensaje_error;
+                mensajeAMostrarHTML.innerHTML = mensajeAMostrar;
+                document.getElementById("modalCuerpo").innerHTML = "Por favor ingrese los datos en los campos requeridos...";
+
+            } else {
+
+                mensajeAMostrar = respuesta.all.msg;
+
+                mensajeAMostrarHTML.innerHTML = mensajeAMostrar;
+                document.getElementById("modalCuerpo").innerHTML = "Gracias. Vuelva pronto!"+ "\t" + "\nFecha y hora de la compra:  " + dateTime2;
+            }
                 
-            
-        }
-
+        });   
         
         if(e.preventDefault) e.preventDefault();
             return false;
@@ -328,3 +336,30 @@ var tasasCambio = async function() {
       return tasas;
   });
 }
+
+function generarNuevoProducto(array, articulos) {
+
+    var prod= {};
+
+    for(let i = 0; i < array.length; i++) {
+        let items = array[i];
+
+        prod = {
+            name: items.name,
+            count: 1,   
+            unitCost: items.cost,
+            currency: items.currency,
+            src: items.imgSrc,
+        }
+           
+        articulos.push(prod);   
+    }
+   
+}
+
+var hoy = new Date();
+var date1 = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
+var time1 = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+let dateTime2 = date1 +' '+ time1;
+
+document.getElementById("time").innerHTML = dateTime2; 

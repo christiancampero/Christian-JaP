@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,6 +11,7 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/dropzone.css" rel="stylesheet">
@@ -137,7 +138,7 @@
               <ul class="list-group mb-3">
                   <li class="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h6 class="my-0">Subtotal (ambos productos)</h6>
+                      <h6 class="my-0">Subtotal (todos los productos)</h6>
                       <small class="text-muted">Costo unitario en función de la cantidad</small>
                     </div>
                     <span class="text-muted" id="subTotal-texto">-</span>
@@ -161,7 +162,7 @@
             <div class="col">
               <h4 class="mb-3">Forma de pago</h4>
               <div>
-                <span class="label" id="paymentType">No ha seleccionado</span>
+                <span class="label" id="paymentType">No has seleccionado</span>
                 <br>
                 <br>
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#contidionsModal">Seleccionar</button>
@@ -177,7 +178,7 @@
                   <div class="modal-header">
                     <h5 class="modal-title">Forma de pago</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true"></span>
+                      <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
                   <div class="modal-body">
@@ -194,23 +195,23 @@
                             <label for="shippingStreet">Número de tarjeta</label>
                             <input type="text" class="form-control" id="creditCardNumber" placeholder="" value="" >
                             <div class="invalid-feedback">
-                              Ingresa un número de tarjeta
+                              Número de tarjeta...
                             </div>
                           </div>
                           <div class="col-md-4 mb-3">
                             <label for="shippingStreetNumber">Código de seg.</label>
                             <input type="number" class="form-control" id="creditCardSecurityCode" placeholder="" value="" >
                             <div class="invalid-feedback">
-                              Ingresa el código de seguridad
+                              Código de seguridad...
                             </div>
                           </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                              <label for="dueDate">Vencimiento (MM/AA)</label>
+                              <label for="dueDate">Vencimiento (formato MM/AA)</label>
                               <input type="text" class="form-control" id="dueDate" placeholder="" value="" >
                               <div class="invalid-feedback">
-                                Ingresa la fecha de vencimiento
+                                Fecha de vencimiento...
                               </div>
                             </div>
                         </div>
@@ -226,7 +227,7 @@
                             <label for="bankAccountNumber">Número de cuenta</label>
                             <input type="text" class="form-control" id="bankAccountNumber" placeholder="" value="" >
                             <div class="invalid-feedback">
-                              Ingresa un número de cuenta
+                              Ingresa el número de cuenta
                             </div>
                           </div>
                     </div>
@@ -238,17 +239,43 @@
               </div>
         </div>
       </div>
-
           <div class="row">
             <br>
-              <button class="btn btn-primary btn-lg my-5" type="submit">Finalizar compra</button>
+              <button class="btn btn-primary btn-lg my-5" type="submit" data-toggle="modal" data-target="#exampleModalCenter">Finalizar compra</button>
           </div>
         </form>
       </div>
     </div>
   </div>
-  
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="modalCuerpo">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <footer class="text-muted bg-light">
+    <div style="text-align: center;" class="container">
+      <marquee behavior="scroll" style="background-color: gainsboro; border: 1px solid darkgoldenrod;" loop="-1"
+        width="30%">
+        <i>
+          <p style="color: blue">Fecha y hora actuales:</p>
+          <strong>
+            <span id="time"></span>
+          </strong>
+        </i>
+      </marquee>
+    </div>
     <div class="container">
       <p class="float-right">
         <a href="#">Volver arriba</a>
@@ -256,7 +283,7 @@
       <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
     </div>
   </footer>
-  
+
   <div id="spinner-wrapper"><div class="lds-ring"><div></div><div></div><div></div><div></div></div></div>
 
   <script src="js/jquery-3.4.1.min.js"></script>

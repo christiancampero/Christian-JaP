@@ -117,15 +117,11 @@ document.addEventListener("DOMContentLoaded", function(e){
         
         if(!infoMissing)
         {
-            //Aquí ingresa si pasó los controles, irá a enviar
-            //la solicitud para crear la publicación.
 
             getJSONData(PUBLISH_PRODUCT_URL).then(function(resultObj){
                 let msgToShowHTML = document.getElementById("resultSpan");
                 let msgToShow = "";
     
-                //Si la publicación fue exitosa, devolverá mensaje de éxito,
-                //de lo contrario, devolverá mensaje de error.
                 if (resultObj.status === 'ok')
                 {
                     msgToShow = resultObj.data.msg;
@@ -142,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function(e){
             });
         }
 
-        //Esto se debe realizar para prevenir que el formulario se envíe (comportamiento por defecto del navegador)
         if (e.preventDefault) e.preventDefault();
             return false;
     });
