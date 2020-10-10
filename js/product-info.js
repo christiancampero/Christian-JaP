@@ -1,6 +1,7 @@
 
 let product = [];
 let commentsArray = [];
+let indiceRelacionados = [];
 
 function mostrarGaleriaImagenes(array){
 
@@ -36,7 +37,6 @@ function mostrarDetallesProducto(nombreAt2, product) {
     productSoldCountHTML.innerHTML = product.soldCount; 
     productCategoryHTML.innerHTML = '<a href="category-info.html">' + product.category + '</a>';
     productCostHTML.innerHTML = product.currency + " " + product.cost;  
-   
 
 }
 
@@ -45,36 +45,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const url = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json"); 
     
-  
 
     console.log(decodeURI(window.location.search.substring(1)));
   
     let nombreAt2 = decodeURI((window.location.search).substring(1).replace("name=", ""));
 
-    if(!window.location.search) { //si no retorna el query...
+    if(!window.location.search) { 
         nombreAt2 = "Chevrolet Onix Joy";
     }
     
-    //petición tipo AJAX
+    const Http = new XMLHttpRequest(); 
 
-    const Http = new XMLHttpRequest(); //con este metodo creo un nuevo objeto XMLHttpRequest
-
-    Http.open("GET", url, true); //peticion asyncrona
+    Http.open("GET", url, true); 
     Http.send();
 
-    Http.onreadystatechange = function(e) { // la propiedad .onreadystatechange define una función a ejecutar cuando cambia el readyState y/o status
+    Http.onreadystatechange = function(e) { 
     
         e.preventDefault();
-        console.log(Http.responseText);
 
-        if (Http.readyState == 4 && Http.status == 200) { //readyState == 4 la petición está completa y status == 200, es decir, "ok", entonces... 
+        if (Http.readyState == 4 && Http.status == 200) { 
         
          
-            product = JSON.parse(Http.responseText); //parseo la respuesta para obtener un objeto de javascript
-            console.log(product);
+            product = JSON.parse(Http.responseText); 
             
-            mostrarDetallesProducto(nombreAt2, product);  //muestro información del producto en cuestión
-            //mostrarGaleriaImagenes(product.images); // muestro de forma ordenada la galería de imagenes referentes al producto
+            mostrarDetallesProducto(nombreAt2, product);  
+            indiceRelacionados = product.relatedProducts;
 
         } else {
             console.log("Error:" + Http.status);
@@ -84,9 +79,9 @@ document.addEventListener('DOMContentLoaded', function() {
     getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
         if (resultObj.status === "ok")
         {
-            commentsArray = resultObj.data; //recibo los comentarios
+            commentsArray = resultObj.data; 
             
-            mostrarComentariosOrdenados(commentsArray); //paso el array de comentarios a una función que los ordena
+            mostrarComentariosOrdenados(commentsArray); 
             
         }
     });
@@ -100,13 +95,11 @@ document.addEventListener('DOMContentLoaded', function() {
     relacionados.onreadystatechange = async (e) => {
 
         e.preventDefault();
-        console.log(relacionados.responseText);
         var prodRel = [];
 
         if (relacionados.readyState == 4 && relacionados.status == 200) {
             
             prodRel = JSON.parse(relacionados.responseText);
-            console.log(prodRel);
             mostrarRelacionados(prodRel);
 
 
@@ -160,7 +153,8 @@ function mostrarComentariosOrdenados(array) {
     }
 }
 
-//obtener fecha y hora actuales
+
+
 var hoy = new Date();
 var date1 = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
 var time1 = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
@@ -187,33 +181,41 @@ function agregarNuevoComentario(commentsArray){
 
 function mostrarRelacionados(prodRel){
 
-    let nombreProductoHTML  = document.getElementById("nombreProducto");
-    let descripcionProductoHTML = document.getElementById("descripcionProducto");
-    let cantidadVendidosHTML = document.getElementById("cantidadVendidos");
-    let costoProductoHTML = document.getElementById("costoProducto");
-    
+    let htmlContentToAppendRel = "";
+    let indiceRel = indiceRelacionados;
+    let indexR = 0;
+    var nuevo = [];
 
-    nombreProductoHTML.innerHTML = prodRel[1].name; 
-    descripcionProductoHTML.innerHTML = prodRel[1].description; 
-    cantidadVendidosHTML.innerHTML = "Cantidad vendidos:  " + prodRel[1].soldCount; 
-    costoProductoHTML.innerHTML = "Costo:  " + prodRel[1].currency + " " + prodRel[1].cost;  
-   
+    for(let j = 0; j < indiceRel.length; j++) {
+        
+        indexR = indiceRel[j];
 
-    let nombreProducto2HTML  = document.getElementById("nombreProducto2");
-    let descripcionProducto2HTML = document.getElementById("descripcionProducto2");
-    let cantidadVendidos2HTML = document.getElementById("cantidadVendidos2");
-    let costoProducto2HTML = document.getElementById("costoProducto2");
-    
+        nuevo.push(prodRel[indexR]);
+        
+    } 
 
+    nuevo.forEach(element => {
 
-    nombreProducto2HTML.innerHTML = prodRel[3].name;  
-    descripcionProducto2HTML.innerHTML = prodRel[3].description; 
-    cantidadVendidos2HTML.innerHTML = "Cantidad vendidos: " + prodRel[3].soldCount; 
-    costoProducto2HTML.innerHTML = "Costo: " + prodRel[3].currency + " " + prodRel[3].cost;  
-   
+            htmlContentToAppendRel += `
+                <div class="card">
+                <img class="card-img-top" src="${element.imgSrc}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">${element.name}</h5>
+                    <p class="card-text">${element.description}</p>
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${"Cantidad vendidos:  " + element.soldCount}</li>
+                    <li class="list-group-item">${"Costo:  " + element.currency + " " + element.cost}</li>
+                </ul>
+                </div>
+                <div class="card-footer">
+                <a href="#" class="card-link">Ir al producto</a>
+                </div>
+            </div> `;
+        })
+    document.getElementById("productos-relacionados").innerHTML = htmlContentToAppendRel;
 } 
 
-//Para mostrar la fecha y hora
+
 document.getElementById("time").innerHTML = dateTime2; 
 
 
@@ -227,7 +229,7 @@ function evaluarUsuario() {
     }
 }
 
-//funciones para efecto de las estrellas y para obtener el valor de las mismas 
+
 var contador;
 
 function starmark(item)
@@ -254,7 +256,6 @@ function resultadoEstrellas()
 
 
 
-//carrusel 
 function shiftLeft() {
     const boxes = document.querySelectorAll(".box");
     const tmpNode = boxes[0];
