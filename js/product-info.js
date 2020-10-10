@@ -121,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let cc = [];
        
         cc = JSON.parse(sessionStorage.getItem("arrayComentarioPaso"));
-        //console.log(cc);
         mostrarComentariosOrdenados(cc);
         
     
