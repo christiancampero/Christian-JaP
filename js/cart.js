@@ -89,13 +89,14 @@ function mostrarArticulos(array){
         }
 
         htmlContentToAppend += `
-        <tr>
+        <tr id="linea${i}">
             <td><img src='${element.src}' width="85px"></td>
             <td>${element.name}</td>
             <td>${monedaProducto}</td>
             <td class="costos" id="costoU${i}">${costoUnitarioProducto}</td>
             <td><input class="form-control" style="width:60px;" id="controlador${i}" type="number" value="${element.count}" min="1"></td>
             <td><span class="cambiador" id="precio${i}" style="font-weight:bold;">${costoUnitarioProducto * element.count}</span></td>
+            <td><button type="button" class="btn btn-danger" id="borrar${i}">Quitar</button></td>
         </tr>
         `;
     }
@@ -126,6 +127,7 @@ function mostrarArticulos(array){
             actualizarIntermedio();
         });   
     }
+    removerArticulo(array);
 }
 
 
@@ -363,3 +365,21 @@ var time1 = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
 let dateTime2 = date1 +' '+ time1;
 
 document.getElementById("time").innerHTML = dateTime2; 
+
+
+function removerArticulo(array) {
+    
+    for(let i = 0; i < array.length; i++) {
+    
+        document.getElementById(`borrar${i}`).addEventListener("click", event => {
+            
+            var prec = parseInt(document.getElementById(`costoU${i}`).innerText);
+            contador = parseInt(document.getElementById(`controlador${i}`).value);
+
+            Total = Total - (prec * contador);
+
+            document.getElementById(`linea${i}`).innerHTML = "";
+            actualizarCostosTotales();
+        });
+    }
+}
