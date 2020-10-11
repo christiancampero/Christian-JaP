@@ -45,8 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const url = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json"); 
     
-
-    console.log(decodeURI(window.location.search.substring(1)));
   
     let nombreAt2 = decodeURI((window.location.search).substring(1).replace("name=", ""));
 
@@ -71,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mostrarDetallesProducto(nombreAt2, product);  
             indiceRelacionados = product.relatedProducts;
 
-        } else {
+        } else if(Http.status == 404 || Http.status == 400 || Http.status == 403){
             console.log("Error:" + Http.status);
         }
     }
@@ -97,13 +95,13 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         var prodRel = [];
 
-        if (relacionados.readyState == 4 && relacionados.status == 200) {
+        if(relacionados.readyState == 4 && relacionados.status == 200) {
             
             prodRel = JSON.parse(relacionados.responseText);
             mostrarRelacionados(prodRel);
 
 
-        } else {
+        } else if(Http.status == 404 || Http.status == 400 || Http.status == 403) {
              console.log(relacionados.status);
         }
     }
