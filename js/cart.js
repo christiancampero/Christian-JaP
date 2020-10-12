@@ -39,9 +39,11 @@ function actualizarIntermedio() {
         var price = parseInt(cartI.innerText);
       
         totalItems = totalItems + (price * contador);
+        Total = totalItems;
+        actualizarCostosTotales();
     }
-    Total = totalItems;
-    actualizarCostosTotales();
+   /*  Total = totalItems;
+    actualizarCostosTotales(); */
 } 
 
 function actualizarCostosTotales(){
@@ -125,7 +127,7 @@ function mostrarArticulos(array){
             subTotal = contador * costoUnitarioProducto;
             actualizarSubTotal(i); 
             actualizarIntermedio();
-        });   
+        });
     }
     removerArticulo(array);
 }
@@ -380,6 +382,13 @@ function removerArticulo(array) {
 
             document.getElementById(`linea${i}`).innerHTML = "";
             actualizarCostosTotales();
+
+            var arrayCortado = array.splice(i, 1);
+            console.log(arrayCortado);
+            console.log(array)
+
+            mostrarArticulos(array);
+            
         });
     }
-}
+} 
