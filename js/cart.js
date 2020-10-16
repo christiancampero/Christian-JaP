@@ -4,7 +4,7 @@ const urlMensaje = "https://japdevdep.github.io/ecommerce-api/cart/buy.json";
 const currencyRates = "https://api.currencyfreaks.com/latest?apikey=cc9ff3a12c0d485583362e12d645dee2";
 const allProducts = "https://japdevdep.github.io/ecommerce-api/product/all.json";
 
-
+var arrayUnido = {};
 var articulos = {};
 var productos = {};
 let porcentajeEnvio = 0.15;
@@ -13,7 +13,10 @@ var subTotal = 0;
 let monedaProducto = "";
 var costoUnitarioProducto = 0;
 var Total = 0;
-
+var contadorRemovido = 0;
+var subTotalRemovido = 0;
+let monedaProductoRemovido = "";
+var costoUnitarioProductoRemovido = 0;
 
 let metodoPagoSeleccionado = false;
 const tarjeta_credito = "Tarjeta de crédito";
@@ -42,8 +45,6 @@ function actualizarIntermedio() {
         Total = totalItems;
         actualizarCostosTotales();
     }
-   /*  Total = totalItems;
-    actualizarCostosTotales(); */
 } 
 
 function actualizarCostosTotales(){
@@ -370,7 +371,9 @@ document.getElementById("time").innerHTML = dateTime2;
 
 
 function removerArticulo(array) {
-    
+
+    var arrayMini = [];
+
     for(let i = 0; i < array.length; i++) {
     
         document.getElementById(`borrar${i}`).addEventListener("click", event => {
@@ -383,12 +386,90 @@ function removerArticulo(array) {
             document.getElementById(`linea${i}`).innerHTML = "";
             actualizarCostosTotales();
 
-            var arrayCortado = array.splice(i, 1);
-            console.log(arrayCortado);
-            console.log(array)
+            arrayMini.push(array[i]);
 
-            mostrarArticulos(array);
-            
+            mostrarRemovidosConRetorno(arrayMini);
+
+            array.splice(i);
         });
     }
 } 
+
+function mostrarRemovidosConRetorno(array) {
+
+    let htmlContentToAppend3 = "";
+
+    for(let i = 0; i < array.length; i++){ 
+        
+        let elementi = array[i];
+        
+        if(elementi.currency === "USD") {
+                
+            monedaProductoRemovido = "UYU";
+            costoUnitarioProductoRemovido = (elementi.unitCost * 43);
+
+        } else if(elementi.currency === "UYU") { 
+             
+            monedaProductoRemovido = elementi.currency;
+            costoUnitarioProductoRemovido = elementi.unitCost;
+        }
+
+        htmlContentToAppend3 += `
+        <tr id="lineaOtro${i}">
+            <td><img src='${elementi.src}' width="85px"></td>
+            <td>${elementi.name}</td>
+            <td>${monedaProductoRemovido}</td>
+            <td class="costosOtro" id="costoUOtro${i}">${costoUnitarioProductoRemovido}</td>
+            <td><input class="form-control" style="width:60px;" id="controladorOtro${i}" type="number" value="${elementi.count}" min="1"></td>
+            <td><span class="cambiadorOtro" id="precioOtro${i}" style="font-weight:bold;">${costoUnitarioProductoRemovido * elementi.count}</span></td>
+            <td><button type="button" class="btn btn-success" id="agregarOtro${i}">Agregar</button></td>
+        </tr>
+        `;
+    }
+    document.getElementById("mostrarArticulos-removidos").innerHTML = htmlContentToAppend3;
+
+    
+    for(let i = 0; i < array.length; i++) {
+    
+        let items = array[i];
+
+        document.getElementById(`controladorOtro${i}`).addEventListener("change", event => {
+            
+            if(items.currency === "USD") {
+
+                monedaProductoRemovido = "UYU";
+                costoUnitarioProductoRemovido = (items.unitCost * 43);
+    
+            } else if(items.currency === "UYU") { 
+                 
+                monedaProductoRemovido = items.currency;
+                costoUnitarioProductoRemovido = items.unitCost;
+            }
+            
+            contadorRemovido = parseInt(document.getElementById(`controladorOtro${i}`).value);
+            subTotalRemovido = contadorRemovido * costoUnitarioProductoRemovido;
+            actualizarSubTotalRemovido(i); 
+        });
+
+        document.getElementById(`agregarOtro${i}`).addEventListener("click", event => {
+            
+            var precRemovido = parseInt(document.getElementById(`costoUOtro${i}`).innerText);
+            contadorRemovido = parseInt(document.getElementById(`controladorOtro${i}`).value);
+
+            articulos.push(array[i]);
+            Total = Total + (precRemovido * contadorRemovido);
+
+            document.getElementById(`lineaOtro${i}`).innerHTML = "";
+           
+            mostrarArticulos(articulos);
+        });
+    }
+}
+
+function actualizarSubTotalRemovido(i){
+
+    var cambiarRemovido = document.getElementById(`precioOtro${i}`);
+    
+    cambiarRemovido.innerHTML = monedaProductoRemovido + " " + subTotalRemovido;
+    
+}
