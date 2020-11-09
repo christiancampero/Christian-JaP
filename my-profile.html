@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0049)https://getbootstrap.com/docs/4.3/examples/album/ -->
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -9,74 +8,410 @@
   <meta name="description" content="">
   <title>eMercado - Todo lo que busques está aquí</title>
 
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.3/examples/album/">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/dropzone.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/my-profile-style.css">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg site-header sticky-top py-1 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <div class="dropdown">
-        <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Usuario:
-        </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#" id="usuarioON"></a>
-          <a class="dropdown-item" href="#" id="usuarioGoog"></a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="./cart.html">Mi carrito</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="./my-profile.html">Perfil</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" id="saliendo" onclick="localStorage.clear()" href="./login.html">Salir</a>
+  <div class="main-content">
+    <nav class="navbar navbar-top sticky-top navbar-expand-lg navbar-dark" id="navbar-main">
+      <div class="container-fluid">
+    
+        <a href="./index.html" class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" onclick="location.assign('./index.html')">Volver al inicio </a>
+        
+        <div class="pos-f-t" style="margin-left: 40px;">
+          <div class="collapse" id="navbarToggleExternalContent">
+            <div class="bg-dark p-4">
+              <h4 class="text-white">Bienvenido/a</h4>
+              <button class="btn btn-sm btn-primary" onclick="location.assign('./cart.html')">Mi carrito</button>
+              <button class="btn btn-sm btn-primary" onclick="location.assign('./index.html')">Ir a inicio</button>
+              <button class="btn btn-sm btn-primary" onclick="localStorage.clear(), location.assign('./login.html')">Salir</button>
+              <span class="text-muted"></span>
+            </div>
+          </div>
+          <nav class="navbar navbar-lightblue bg-lightblue">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </nav>
         </div>
+
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+          <div class="form-group mb-0">
+            <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+              </div>
+              <input class="form-control" placeholder="Buscar" type="text">
+            </div>
+          </div>
+        </form>
+   
+        <ul class="navbar-nav align-items-center d-none d-md-flex">
+          <li class="nav-item dropdown">
+            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <div class="media align-items-center">
+                <span class="avatar avatar-sm rounded-circle">
+                  <img alt="Image placeholder" src="img/avatar2.png">
+                </span>
+                <div class="media-body ml-2 d-none d-lg-block">
+                  <span class="mb-0 text-sm  font-weight-bold">Christian</span>
+                </div>
+              </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+              <div class=" dropdown-header noti-title">
+                <h6 class="text-overflow m-0">Bienvenido/a!</h6>
+              </div>
+              <a href="./my-profile.html" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>Mi perfil</span>
+              </a>
+              <a href="" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Configuración</span>
+              </a>
+              <a href="./cart.html" class="dropdown-item">
+                <i class="ni ni-calendar-grid-58"></i>
+                <span>Mi carrito</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" id="saliendo" onclick="localStorage.clear()" href="./login.html">
+                <i class="ni ni-user-run"></i>
+                <span>Salir</span>
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+   
+    <div class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(img/spaceWallpaper.jpg); background-size: cover; background-position: center top;">
+    
+      <span class="mask bg-gradient-default opacity-8"></span>
+      
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Bienvenido/a!</h1>
+            <a href="#!" class="btn btn-info" data-toggle="modal" data-target="#contidionsModal">Cambiar imagen y otros datos</a>
+          </div>
         </div>
+      </div>
     </div>
-  </nav>
-  <div class="container p-5">
-    <div class="alert alert-danger" role="alert" style="position: relative; width:auto; top: 0;">
-      <h4 class="alert-heading">¡A trabajar! :)</h4>
-      <p>Esta sección corresponde a: Entrega 7 (Fecha de entrega: 8/11/202020) -> Punto 1 y 2.</p>
-      <hr>
-      <p class="mb-0">Para saber qué debes hacer, fijate en la actividad en CREA correspondiente a esta entrega.</p>
+ 
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                <div class="card-profile-image">
+                  <a href="#">
+                    <img id="profile-img" src="https://i.ibb.co/HYdY5pS/yo2-Perfil-png.jpg" crossOrigin="anonymous" alt="yo2-Perfil-png" class="rounded-circle">
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between">
+                <a href="#" class="btn btn-sm btn-info mr-4">Conectar</a>
+                <a href="#" class="btn btn-sm btn-default float-right">Mensaje</a>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">22</span>
+                      <span class="description">Amigos</span>
+                    </div>
+                    <div>
+                      <span class="heading">10</span>
+                      <span class="description">Fotos</span>
+                    </div>
+                    <div>
+                      <span class="heading">89</span>
+                      <span class="description">Comentarios</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  <span class="font-weight-light" id="age-showed">Nombre, edad</span>
+                </h3>
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i><p id="country-showed">País</p>
+                </div>
+                <div class="h5 mt-4">
+                  <i class="ni business_briefcase-24 mr-2" id="job-showed"></i><p id="job-showed-2"></p>
+                </div>
+                <div>
+                  <i class="ni education_hat mr-2"></i><p id="education-showed">Educación</p>
+                </div>
+                <hr class="my-4">
+                <p id="stored-description">Descripción</p>
+                <a href="#">Ver más</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-8 order-xl-1">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Mi cuenta</h3>
+                </div>
+                <div class="col-4 text-right">
+                  <a href="#" class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" onClick="document.getElementById('info-user').scrollIntoView();">Configurar perfil</a>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <h6 class="heading-small text-muted mb-4">Datos guardados</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username">Usuario</label>
+                        <input type="text" id="stored-username" class="form-control form-control-alternative" placeholder="Nombre de usuario" style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Dirección Email</label>
+                        <input type="email" id="stored-email" class="form-control form-control-alternative" placeholder="etc@gmail.com" style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">Nombre</label>
+                        <input type="text" id="stored-first-name" class="form-control form-control-alternative" placeholder="Nombre"  style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Apellido</label>
+                        <input type="text" id="stored-last-name" class="form-control form-control-alternative" placeholder="Apellido"  style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="stored-age">Edad</label>
+                        <input type="number" id="stored-age" class="form-control form-control-alternative" placeholder="Edad"  style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">Dirección</label>
+                        <input type="text" id="stored-address" class="form-control form-control-alternative" placeholder="Direccion"  style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-city">Ciudad</label>
+                        <input type="text" id="stored-city" class="form-control form-control-alternative" placeholder="Ciudad"  style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-country">País</label>
+                        <input type="text" id="stored-country" class="form-control form-control-alternative" placeholder="Pais"  style="font-weight: bold;" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Teléfono de contacto</label>
+                        <input type="number" id="stored-cellphone" class="form-control form-control-alternative" placeholder="Número de teléfono"  style="font-weight: bold; color: blue;" disabled>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <form>
+                 <hr class="my-4">
+                 <h6 class="heading-small text-muted mb-4" id="info-user">Información de usuario</h6>
+                <div class="collapse" id="collapseOne">
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Dirección Email</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="etc@gmail.com">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-first-name">Nombre</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="Nombre">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Apellido</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Apellido">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-age">Edad</label>
+                        <input type="number" id="input-age" class="form-control form-control-alternative" placeholder="Edad">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <h6 class="heading-small text-muted mb-4">Información de contacto</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-address">Dirección</label>
+                        <input type="text" id="input-address" class="form-control form-control-alternative" placeholder="Direccion" value="">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-city">Ciudad</label>
+                        <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="Ciudad" value="">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-country">País</label>
+                        <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Pais" value="">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Teléfono de contacto</label>
+                        <input type="number" id="input-cellphone" class="form-control form-control-alternative" placeholder="Número de teléfono">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <hr class="my-4">
+            
+                <h6 class="heading-small text-muted mb-4">Sobre mí</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group focused">
+                    <label>Acerca de mí</label>
+                    <textarea rows="4" class="form-control form-control-alternative" id="about-me" placeholder="Escribe algo acerca de ti..."></textarea>
+                  </div>
+                </div>
+              </form>
+              <div>
+                <button class="btn btn-sm btn-primary" id="store-user-info" type="button">Guardar todo</button>
+              </div>
+              <br>
+              <br>
+              <hr class="md-4">
+              <br>
+              <h5 class="heading-small text-muted mb-4">Subir imagen de perfil</h5>
+              <br>
+              <input id="browse" type="file" onchange="previewFiles()" accept=".jpg, .jpeg, .png">
+              <div id="preview"></div>
+              <br>
+              <button class="btn btn-sm btn-primary" id="imagen-file-reader" onClick="document.getElementById('profile-img').scrollIntoView();">Cambiar imagen de perfil</button>
+              <br>
+              <hr class="md-4">
+              <h5 class="heading-small text-muted mb-4">Cargar imagen por Dropzone</h5>
+              <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <footer class="text-muted bg-light">
-    <div class="container">
-      <p>Este sitio forma parte de Desarrollo Web - JAP - 2020</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+  <div class="modal fade" tabindex="-1" role="dialog" id="contidionsModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Editar perfil</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+              <hr class="md-4">
+              <div class="row">
+                  <div class="col-md-8 mb-3">
+                    <label for="dueDate">Cambiar imagen de perfil</label>
+                    <input type="text" class="form-control" id="profile-link" placeholder="Introduce un enlace" value="">
+                    <div class="invalid-feedback">
+                     Introduce el enlace donde se encuenta alojada la imagen
+                    </div>
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="age-to-show">Edad</label>
+                  <input type="text" class="form-control" id="age-to-show" placeholder="Introduce tu edad" value="">
+                  <div class="invalid-feedback">
+                    Ingresa tu edad
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="job-to-show">Ingresa tu profesión</label>
+                  <input type="text" class="form-control" id="job-to-show" placeholder="Introduce tu profesión" value="">
+                  <div class="invalid-feedback">
+                    Profesión?
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8 mb-3">
+                  <label for="education-to-show">Educación</label>
+                  <input type="text" class="form-control" id="education-to-show" placeholder="Introduce tu educación" value="">
+                  <div class="invalid-feedback">
+                    Educación?
+                  </div>
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="dashBoard">Guardar</button>
+        </div>
+      </div>
+    </div>
+</div>
+</div>
+  <footer class="footer">
+    <div class="row align-items-center justify-content-xl-between">
+      <div class="col-xl-6 m-auto text-center">
+      </div>
     </div>
   </footer>
-  <div class="alert fade alert-success" role="alert" id="alertResult">
-    <span id="resultSpan"></span>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

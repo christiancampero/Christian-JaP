@@ -10,7 +10,7 @@
 
   
   <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+ 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -52,7 +52,7 @@
     .checked {
       color:#1E90FF;
     }
-  </style><!--Estilos para star rating y imagenes del producto-->
+  </style>
 </head>
 
 <body>
@@ -135,35 +135,7 @@
       <br>
         <h4>Productos relacionados</h4>
         <br>
-        <div class="card-deck" style="max-width: 50%; height: auto;">
-          <div class="card">
-            <img class="card-img-top" id="imagenProducto" src="img/prod2.jpg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title" id="nombreProducto"></h5>
-              <p class="card-text" id="descripcionProducto"></p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" id="cantidadVendidos"></li>
-                <li class="list-group-item" id="costoProducto"></li>
-              </ul>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="card-link">Ir al producto</a>
-            </div>
-          </div>
-          <div class="card">
-            <img class="card-img-top" id="imagenProducto2" src="img/prod4.jpg" alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title" id="nombreProducto2"></h5>
-              <p class="card-text" id="descripcionProducto2"></p>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" id="cantidadVendidos2"></li>
-                <li class="list-group-item" id="costoProducto2"></li>
-              </ul>
-            </div>
-            <div class="card-footer">
-              <a href="#" class="card-link">Ir al producto</a>
-            </div>
-          </div>
+        <div class="card-deck" id="productos-relacionados"style="max-width: 50%; height: auto;">
         </div>
         <br>
         <hr>
@@ -264,8 +236,6 @@
   <script src="js/login.js"></script>
   <script src="js/indexPrime.js"></script>
   <script src="js/product-info.js"></script>
-
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>
