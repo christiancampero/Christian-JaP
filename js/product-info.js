@@ -41,91 +41,6 @@ function mostrarDetallesProducto(nombreAt2, product) {
 
 }
 
-
-document.addEventListener('DOMContentLoaded', function() {
-
-    const url = new URL("https://japdevdep.github.io/ecommerce-api/product/5678.json"); 
-    
-  
-    let nombreAt2 = decodeURI((window.location.search).substring(1).replace("name=", ""));
-
-    if(!window.location.search) { 
-        nombreAt2 = "Chevrolet Onix Joy";
-    }
-    
-    const Http = new XMLHttpRequest(); 
-
-    Http.open("GET", url, true); 
-    Http.send();
-
-    Http.onreadystatechange = function(e) { 
-    
-        e.preventDefault();
-
-        if (Http.readyState == 4 && Http.status == 200) { 
-        
-         
-            product = JSON.parse(Http.responseText); 
-            
-            mostrarDetallesProducto(nombreAt2, product);  
-            indiceRelacionados = product.relatedProducts;
-
-        } else if(Http.status == 404 || Http.status == 400 || Http.status == 403){
-            console.log("Error:" + Http.status);
-        }
-    }
-
-    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
-        if (resultObj.status === "ok")
-        {
-            commentsArray = resultObj.data; 
-            
-            mostrarComentariosOrdenados(commentsArray); 
-            
-        }
-    });
-
-    const urlRel = "https://japdevdep.github.io/ecommerce-api/product/all.json";
-    const relacionados = new XMLHttpRequest();
-
-    relacionados.open("GET", urlRel, true);
-    relacionados.send();
-
-    relacionados.onreadystatechange = async (e) => {
-
-        e.preventDefault();
-        var prodRel = [];
-
-        if(relacionados.readyState == 4 && relacionados.status == 200) {
-            
-            prodRel = JSON.parse(relacionados.responseText);
-            mostrarRelacionados(prodRel);
-
-
-        } else if(Http.status == 404 || Http.status == 400 || Http.status == 403) {
-             console.log(relacionados.status);
-        }
-    }
-    document.getElementById('botonazo').addEventListener("click", async() => {
-        
-
-        agregarNuevoComentario(commentsArray);
-        let cc = [];
-       
-        cc = JSON.parse(sessionStorage.getItem("arrayComentarioPaso"));
-        mostrarComentariosOrdenados(cc);
-        
-    
-    });
-
-    document.getElementById("exampleFormControlInput1").placeholder = JSON.parse(localStorage.getItem('quienIngreso'));
-
-   
-            
-
-});
-
-    
 function mostrarComentariosOrdenados(array) {
     let htmlContentToAppend = "";
     for(let i = 0; i < array.length; i++){
@@ -300,3 +215,117 @@ function shiftRight() {
     }, 500);
 
 }
+
+
+let requestJSONData = async function(url) {
+
+    let response = {};
+
+    showSpinner();
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if(!res.ok) {
+            hideSpinner();
+            throw new Error(`Error Http! status: ${res.status}`);
+
+        } else {
+
+            hideSpinner();
+            respuesta.all = data;
+
+            return respuesta;
+        }
+    } 
+    catch(err) {
+        console.log(err);
+        hideSpinner();
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    const url = new URL("http://localhost:3000/static/ecommerce-api/product/5678.json"); 
+    
+  
+    let nombreAt2 = decodeURI((window.location.search).substring(1).replace("name=", ""));
+
+    if(!window.location.search) { 
+        nombreAt2 = "Chevrolet Onix Joy";
+    }
+    
+    const Http = new XMLHttpRequest(); 
+
+    Http.open("GET", url, true); 
+    Http.send();
+
+    Http.onreadystatechange = function(e) { 
+    
+        e.preventDefault();
+
+        if (Http.readyState == 4 && Http.status == 200) { 
+        
+         
+            product = JSON.parse(Http.responseText); 
+            
+            mostrarDetallesProducto(nombreAt2, product);  
+            indiceRelacionados = product.relatedProducts;
+
+        } else if(Http.status == 404 || Http.status == 400 || Http.status == 403){
+            console.log("Error:" + Http.status);
+        }
+    }
+
+    getJSONData(PRODUCT_INFO_COMMENTS_URL).then(function(resultObj){
+        if (resultObj.status === "ok")
+        {
+            commentsArray = resultObj.data; 
+            
+            mostrarComentariosOrdenados(commentsArray); 
+            
+        }
+    });
+
+    const urlRel = "http://localhost:3000/static/ecommerce-api/product/all.json";
+    const relacionados = new XMLHttpRequest();
+
+    relacionados.open("GET", urlRel, true);
+    relacionados.send();
+
+    relacionados.onreadystatechange = async (e) => {
+
+        e.preventDefault();
+        var prodRel = [];
+
+        if(relacionados.readyState == 4 && relacionados.status == 200) {
+            
+            prodRel = JSON.parse(relacionados.responseText);
+            mostrarRelacionados(prodRel);
+
+
+        } else if(Http.status == 404 || Http.status == 400 || Http.status == 403) {
+             console.log(relacionados.status);
+        }
+    }
+    document.getElementById('botonazo').addEventListener("click", async() => {
+        
+
+        agregarNuevoComentario(commentsArray);
+        let cc = [];
+       
+        cc = JSON.parse(sessionStorage.getItem("arrayComentarioPaso"));
+        mostrarComentariosOrdenados(cc);
+        
+    
+    });
+
+    document.getElementById("exampleFormControlInput1").placeholder = JSON.parse(localStorage.getItem('quienIngreso'));
+
+   
+            
+
+});
+
+    

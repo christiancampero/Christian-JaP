@@ -28,6 +28,7 @@ const tarjeta_credito = "Tarjeta de crédito";
 const pago_bancario = "Transferencia bancaria";
 let mensaje_error = "Se ha producido un error con el proceso de compra";
 
+
 function actualizarSubTotal(i){
 
     var cambiar = document.getElementById(`precio${i}`);
@@ -140,6 +141,253 @@ function mostrarArticulos(array){
     removerArticulo(array);
 }
 
+
+let obtenerJSONData = async function(url) {
+
+    var respuesta = {};
+
+    showSpinner();
+    try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        if(!res.ok) {
+            hideSpinner();
+            throw new Error(`Error Http! status: ${res.status}`);
+
+        } else {
+
+            hideSpinner();
+            respuesta.all = data;
+
+            return respuesta;
+        }
+    } 
+    catch(err) {
+        console.log(err);
+        hideSpinner();
+    }
+}
+
+var showSpinner = function(){
+    document.getElementById("spinner-wrapper").style.display = "block";
+  }
+  
+  var hideSpinner = function(){
+    document.getElementById("spinner-wrapper").style.display = "none";
+  }
+
+
+ 
+  
+
+let tasas = {};
+let tasaUSD = 0;
+
+var tasasCambio = async function() {
+
+    const ress = await fetch(currencyRates);
+    const datos = ress.json();
+    
+    datos.then(resp =>{
+        if(ress.ok){
+        
+        tasas = resp.rates;
+            
+        tasaUSD = tasas.UYU;
+        console.log(tasaUSD); 
+        
+        return tasaUSD;
+
+        } else {
+            throw Error(ress.statusText); 
+          }
+    })
+    .catch(function(error) {
+      tasas.status = 'error';
+      tasas.datos = error;
+      
+      return tasas;
+  });
+}
+
+function generarNuevoProducto(productos, array) {
+
+    var prod= {};
+
+    for(let i = 0; i < productos.length; i++) {
+        let items = productos[i];
+
+        if(items.name === "Suzuki Celerio") {
+            ;
+        } else {
+
+            prod = {
+                name: items.name,
+                count: 1,   
+                unitCost: items.cost,
+                currency: items.currency,
+                src: items.imgSrc,
+            }
+        array.push(prod);
+        }
+    }
+}
+
+var hoy = new Date();
+var date1 = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
+var time1 = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
+let dateTime2 = date1 +' '+ time1;
+
+document.getElementById("time").innerHTML = dateTime2; 
+
+
+function removerArticulo(array) {
+
+    for(let i = 0; i < array.length; i++) {
+    
+        document.getElementById(`borrar${i}`).addEventListener("click", event => {
+            
+            var prec = parseInt(document.getElementById(`costoU${i}`).innerText);
+            contador = parseInt(document.getElementById(`controlador${i}`).value);
+
+            Total = Total - (prec * contador);
+
+            document.getElementById(`tdBorrar${i}`).parentElement.remove();
+
+            actualizarCostosTotales();
+
+            arrayMini.push(array[i]); 
+            removeDuplicates(arrayMini);           
+
+            mostrarRemovidosConRetorno(arrayMini);
+
+            var nodos = document.querySelectorAll(".varios");
+            var nodes = [...nodos];
+        });
+    }
+} 
+
+function mostrarRemovidosConRetorno(arrayMini) {
+
+    
+    let unicos = (arrayMini) => arrayMini.filter((v,i) => arrayMini.indexOf(v) === i);
+
+    arrayMini = unicos(arrayMini); 
+
+    let htmlContentToAppend3 = "";
+ 
+    for(let i = 0; i < arrayMini.length; i++){ 
+        
+        let elementi = arrayMini[i];
+       
+        if(elementi != undefined) {
+
+            if(elementi.currency === "USD" && elementi.currency != undefined) {
+                    
+                monedaProductoRemovido = "UYU";
+                costoUnitarioProductoRemovido = (elementi.unitCost * dolarAPeso);
+
+            } else if(elementi.currency === "UYU" && elementi.currency != undefined) {  
+                
+                monedaProductoRemovido = elementi.currency;
+                costoUnitarioProductoRemovido = elementi.unitCost;
+            }
+
+            htmlContentToAppend3 += `
+            <tr id="lineaOtro${i}">
+                <td><img src='${elementi.src}' width="85px"></td>
+                <td>${elementi.name}</td>
+                <td>${monedaProductoRemovido}</td>
+                <td class="costosOtro" id="costoUOtro${i}">${costoUnitarioProductoRemovido}</td>
+                <td><input class="form-control" style="width:60px;" id="controladorOtro${i}" type="number" value="${elementi.count}" min="1"></td>
+                <td><span class="cambiadorOtro" id="precioOtro${i}" style="font-weight:bold;">${costoUnitarioProductoRemovido * elementi.count}</span></td>
+                <td id="lineAnother${i}"><button type="button" class="btn btn-success" id="agregarOtro${i}">Agregar</button></td>    
+            </tr>
+            `;
+        }
+    }
+    document.getElementById("mostrarArticulos-removidos").innerHTML = htmlContentToAppend3;
+
+    
+    for(let i = 0; i < arrayMini.length; i++) {
+    
+        let items = arrayMini[i];
+
+        if(items != undefined) {
+
+            document.getElementById(`controladorOtro${i}`).addEventListener("change", event => {
+                
+                if(items.currency === "USD" && items.currency != undefined) {
+
+                    monedaProductoRemovido = "UYU";
+                    costoUnitarioProductoRemovido = (items.unitCost * dolarAPeso);
+        
+                } else if(items.currency === "UYU" && items.currency != undefined) { 
+                    
+                    monedaProductoRemovido = items.currency;
+                    costoUnitarioProductoRemovido = items.unitCost;
+                }
+                
+                contadorRemovido = parseInt(document.getElementById(`controladorOtro${i}`).value);
+                subTotalRemovido = contadorRemovido * costoUnitarioProductoRemovido;
+                actualizarSubTotalRemovido(i); 
+            });
+
+            document.getElementById(`agregarOtro${i}`).addEventListener("click", event => {
+
+                document.getElementById(`lineAnother${i}`).parentElement.remove();
+
+            });
+        }
+    }
+}
+
+function actualizarSubTotalRemovido(i){
+
+    var cambiarRemovido = document.getElementById(`precioOtro${i}`);
+    
+    cambiarRemovido.innerHTML = monedaProductoRemovido + " " + subTotalRemovido;
+    
+}
+
+function filtrados(array) {
+    
+    var filtered = array.filter(ele => ele !== undefined);
+
+    return filtered;
+}
+
+function removeDuplicates(array) {
+    return array.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
+};
+
+
+function hasNumber(myString) {
+
+    return /\d/.test(myString);
+}
+
+function onlyNumbers(myNumber) {
+
+    var reg = new RegExp('^[0-9]+$');
+    return reg.test(myNumber);
+}
+
+function dateFormat(dateString) {
+
+    return /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString);
+}
+
+function emptyString(myString) {
+
+    return /^-?\d+\.?\d*$/.test(myString); 
+}
+
+function streetNameWithSpaces(myString) {
+
+    return /^[a-zA-Z_\s]+$/.test(myString);
+}
 
 document.addEventListener("DOMContentLoaded", function(){
 
@@ -345,263 +593,10 @@ document.addEventListener("DOMContentLoaded", function(){
                 
         });   
         
-        if(e.preventDefault) e.preventDefault();
-            return false;
+        return true;
     });
 
 }); 
             
 
 
-var obtenerJSONData = async function(url) {
-
-    var respuesta = {};
-
-    showSpinner();
-    try {
-        const res = await fetch(url);
-        const data = await res.json();
-
-        if(!res.ok) {
-            hideSpinner();
-            throw new Error(`Error Http! status: ${res.status}`);
-
-        } else {
-
-            hideSpinner();
-            respuesta.all = data;
-
-            return respuesta;
-        }
-    } 
-    catch(err) {
-        console.log(err);
-        hideSpinner();
-    }
-}
-
-var showSpinner = function(){
-    document.getElementById("spinner-wrapper").style.display = "block";
-  }
-  
-  var hideSpinner = function(){
-    document.getElementById("spinner-wrapper").style.display = "none";
-  }
-
-
- 
-  
-//hice la siguiente funcion para obtener la tasa de cambio del dolar a peso Uruguayo
-//para utilizar la api se necesita una apikey, la misma se encuentra en la url
-//podría utilizar el valor que obtengo en tasaUSD haciendo el fetch, pero a efectos de evitar problemas,
-//utilizo el valor 43 =~ 42.52 directamente en los calculos 
-
-let tasas = {};
-let tasaUSD = 0;
-
-var tasasCambio = async function() {
-
-    const ress = await fetch(currencyRates);
-    const datos = ress.json();
-    
-    datos.then(resp =>{
-        if(ress.ok){
-        
-        tasas = resp.rates;
-            
-        tasaUSD = tasas.UYU;
-        console.log(tasaUSD); 
-        
-        return tasaUSD;
-
-        } else {
-            throw Error(ress.statusText); 
-          }
-    })
-    .catch(function(error) {
-      tasas.status = 'error';
-      tasas.datos = error;
-      
-      return tasas;
-  });
-}
-
-function generarNuevoProducto(productos, array) {
-
-    var prod= {};
-
-    for(let i = 0; i < productos.length; i++) {
-        let items = productos[i];
-
-        if(items.name === "Suzuki Celerio") {
-            ;
-        } else {
-
-            prod = {
-                name: items.name,
-                count: 1,   
-                unitCost: items.cost,
-                currency: items.currency,
-                src: items.imgSrc,
-            }
-        array.push(prod);
-        }
-    }
-}
-
-var hoy = new Date();
-var date1 = hoy.getFullYear()+'-'+(hoy.getMonth()+1)+'-'+hoy.getDate();
-var time1 = hoy.getHours() + ":" + hoy.getMinutes() + ":" + hoy.getSeconds();
-let dateTime2 = date1 +' '+ time1;
-
-document.getElementById("time").innerHTML = dateTime2; 
-
-
-function removerArticulo(array) {
-
-    for(let i = 0; i < array.length; i++) {
-    
-        document.getElementById(`borrar${i}`).addEventListener("click", event => {
-            
-            var prec = parseInt(document.getElementById(`costoU${i}`).innerText);
-            contador = parseInt(document.getElementById(`controlador${i}`).value);
-
-            Total = Total - (prec * contador);
-
-            document.getElementById(`tdBorrar${i}`).parentElement.remove();
-
-            actualizarCostosTotales();
-
-            arrayMini.push(array[i]); 
-            removeDuplicates(arrayMini);           
-
-            mostrarRemovidosConRetorno(arrayMini);
-
-            var nodos = document.querySelectorAll(".varios");
-            var nodes = [...nodos];
-            console.log(nodes);
-
-        });
-    }
-} 
-
-function mostrarRemovidosConRetorno(arrayMini) {
-
-    
-    let unicos = (arrayMini) => arrayMini.filter((v,i) => arrayMini.indexOf(v) === i);
-
-    arrayMini = unicos(arrayMini); 
-
-    let htmlContentToAppend3 = "";
- 
-    for(let i = 0; i < arrayMini.length; i++){ 
-        
-        let elementi = arrayMini[i];
-       
-        if(elementi != undefined) {
-
-            if(elementi.currency === "USD" && elementi.currency != undefined) {
-                    
-                monedaProductoRemovido = "UYU";
-                costoUnitarioProductoRemovido = (elementi.unitCost * dolarAPeso);
-
-            } else if(elementi.currency === "UYU" && elementi.currency != undefined) {  
-                
-                monedaProductoRemovido = elementi.currency;
-                costoUnitarioProductoRemovido = elementi.unitCost;
-            }
-
-            htmlContentToAppend3 += `
-            <tr id="lineaOtro${i}">
-                <td><img src='${elementi.src}' width="85px"></td>
-                <td>${elementi.name}</td>
-                <td>${monedaProductoRemovido}</td>
-                <td class="costosOtro" id="costoUOtro${i}">${costoUnitarioProductoRemovido}</td>
-                <td><input class="form-control" style="width:60px;" id="controladorOtro${i}" type="number" value="${elementi.count}" min="1"></td>
-                <td><span class="cambiadorOtro" id="precioOtro${i}" style="font-weight:bold;">${costoUnitarioProductoRemovido * elementi.count}</span></td>
-                <td id="lineAnother${i}"><button type="button" class="btn btn-success" id="agregarOtro${i}">Agregar</button></td>    
-            </tr>
-            `;
-        }
-    }
-    document.getElementById("mostrarArticulos-removidos").innerHTML = htmlContentToAppend3;
-
-    
-    for(let i = 0; i < arrayMini.length; i++) {
-    
-        let items = arrayMini[i];
-
-        if(items != undefined) {
-
-            document.getElementById(`controladorOtro${i}`).addEventListener("change", event => {
-                
-                if(items.currency === "USD" && items.currency != undefined) {
-
-                    monedaProductoRemovido = "UYU";
-                    costoUnitarioProductoRemovido = (items.unitCost * dolarAPeso);
-        
-                } else if(items.currency === "UYU" && items.currency != undefined) { 
-                    
-                    monedaProductoRemovido = items.currency;
-                    costoUnitarioProductoRemovido = items.unitCost;
-                }
-                
-                contadorRemovido = parseInt(document.getElementById(`controladorOtro${i}`).value);
-                subTotalRemovido = contadorRemovido * costoUnitarioProductoRemovido;
-                actualizarSubTotalRemovido(i); 
-            });
-
-            document.getElementById(`agregarOtro${i}`).addEventListener("click", event => {
-
-                document.getElementById(`lineAnother${i}`).parentElement.remove();
-
-            });
-        }
-    }
-}
-
-function actualizarSubTotalRemovido(i){
-
-    var cambiarRemovido = document.getElementById(`precioOtro${i}`);
-    
-    cambiarRemovido.innerHTML = monedaProductoRemovido + " " + subTotalRemovido;
-    
-}
-
-function filtrados(array) {
-    
-    var filtered = array.filter(ele => ele !== undefined);
-
-    return filtered;
-}
-
-function removeDuplicates(array) {
-    return array.reduce((acc, curr) => acc.includes(curr) ? acc : [...acc, curr], []);
-};
-
-
-function hasNumber(myString) {
-
-    return /\d/.test(myString);
-}
-
-function onlyNumbers(myNumber) {
-
-    var reg = new RegExp('^[0-9]+$');
-    return reg.test(myNumber);
-}
-
-function dateFormat(dateString) {
-
-    return /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(dateString);
-}
-
-function emptyString(myString) {
-
-    return /^-?\d+\.?\d*$/.test(myString); 
-}
-
-function streetNameWithSpaces(myString) {
-
-    return /^[a-zA-Z_\s]+$/.test(myString);
-}

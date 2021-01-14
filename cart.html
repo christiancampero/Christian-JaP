@@ -36,17 +36,44 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg site-header sticky-top py-1 bg-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between">
-      <a class="py-2 d-none d-md-inline-block" href="index.html">Inicio</a>
-      <a class="py-2 d-none d-md-inline-block" href="categories.html">Categorías</a>
-      <a class="py-2 d-none d-md-inline-block" href="products.html">Productos</a>
-      <a class="py-2 d-none d-md-inline-block" href="sell.html">Vender</a>
-      <div class="dropdown">
+  <nav class="navbar navbar-expand-lg site-header sticky-top navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">eMercado - JAP</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="./index.html">Inicio <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./categories.html">Categorías</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./products.html">Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./sell.html">Vender</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Para los usuarios
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="./cart.html">Carrito de compras</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="./my-profile.html">Perfil</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item"  onclick="localStorage.clear()" href="./login.html">Salir y volver a login</a>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
         <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Usuario:
         </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
           <a class="dropdown-item" href="#" id="usuarioON"></a>
           <a class="dropdown-item" href="#" id="usuarioGoog"></a>
           <div class="dropdown-divider"></div>
@@ -56,7 +83,7 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" id="saliendo" onclick="localStorage.clear()" href="./login.html">Salir</a>
         </div>
-        </div>
+      </ul>
     </div>
   </nav>
   <div class="container">
@@ -106,7 +133,7 @@
           </table>
           <br>
           <br>
-        <form class="needs-validation" id="formulario-compra">
+        <form action="/process_post" role="form" class="needs-validation" id="formulario-compra" method="POST">
           <hr class="mb-4">
           <br>
           <h4 class="mb-3">Tipo de envío</h4>
@@ -132,14 +159,14 @@
           <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="shippingStreet" style="font-weight: bold;">Calle</label>
-                <input type="text" class="form-control" id="shippingStreet" placeholder="" value="" >
+                <input type="text" class="form-control" id="shippingStreet" name="calleData" placeholder="" value="" >
                 <div class="invalid-feedback">
                   Ingresa una calle
                 </div>
               </div>
               <div class="col-md-4 mb-3">
                   <label for="shippingStreetNumber" style="font-weight: bold;">Número</label>
-                  <input type="number" class="form-control" id="shippingStreetNumber" placeholder="" value="" >
+                  <input type="number" class="form-control" id="shippingStreetNumber" name="numeroData" placeholder="" value="" >
                   <div class="invalid-feedback">
                     Ingresa un número
                   </div>
@@ -148,7 +175,7 @@
           <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="shippingCornerStreet" style="font-weight: bold;">Cruce</label>
-                <input type="text" class="form-control" id="shippingCornerStreet" placeholder="" value="" >
+                <input type="text" class="form-control" id="shippingCornerStreet" name="cruceData" placeholder="" value="" >
                 <div class="invalid-feedback">
                   Cruce con...
                 </div>
@@ -218,14 +245,14 @@
                         <div class="row">
                           <div class="col-md-6 mb-3">
                             <label for="shippingStreet">Número de tarjeta</label>
-                            <input type="text" class="form-control" id="creditCardNumber" placeholder="" value="" disabled>
+                            <input type="text" class="form-control" id="creditCardNumber" name="cardNumberData" placeholder="" value="" disabled>
                             <div class="invalid-feedback">
                               Número de tarjeta (14 dígitos o más)
                             </div>
                           </div>
                           <div class="col-md-4 mb-3">
                             <label for="shippingStreetNumber">Código de seg.</label>
-                            <input type="number" class="form-control" id="creditCardSecurityCode" placeholder="" value="" disabled>
+                            <input type="number" class="form-control" id="creditCardSecurityCode" name="securityCodeData" placeholder="" value="" disabled>
                             <div class="invalid-feedback">
                               Código de seguridad (3 o más dígitos)
                             </div>
@@ -234,7 +261,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                               <label for="dueDate">Vencimiento (MM/DD/AAAA)</label>
-                              <input type="text" class="form-control" id="dueDate" placeholder="" value="" disabled>
+                              <input type="text" class="form-control" id="dueDate" name="dueDateData" placeholder="" value="" disabled>
                               <div class="invalid-feedback">
                                 Introduce la fecha de vencimiento (MM/DD/AAAA)
                               </div>
@@ -250,7 +277,7 @@
                         <div class="row">
                           <div class="col-md-6 mb-3">
                             <label for="bankAccountNumber">Número de cuenta</label>
-                            <input type="text" class="form-control" id="bankAccountNumber" placeholder="" value="" disabled>
+                            <input type="text" class="form-control" id="bankAccountNumber" name="bankAccData" placeholder="" value="" disabled>
                             <div class="invalid-feedback">
                               Ingresa el número de cuenta (14 dígitos o más)
                             </div>
@@ -316,7 +343,6 @@
   <script src="js/dropzone.js"></script>
   <script src="js/init.js"></script>
   <script src="js/cart.js"></script>
-  <script src="js/login.js"></script>
   <script src="js/indexPrime.js"></script>
 </body>
 

@@ -1,5 +1,5 @@
 
-/* Formulario con bordes*/
+
 html{
   background-image: url("wallpaperLogin.jpg");
 }
@@ -17,7 +17,7 @@ form {
     box-sizing: border-box;
   }
   
-  /* Pone un estilo a todos los buttons*/
+  
   button {
     background-color: #4CAF50;
     color: black;
@@ -29,38 +29,38 @@ form {
   }
   
   
-  /* Estilo extra para el button de cancelar */
+
   .cancelbtn {
     width: auto;
     padding: 10px 18px;
     background-color: #f44336;
   }
   
-  /* Centra la imagen del avatar dentro del container */
+  
   .imgcontainer {
     text-align: center;
     margin: 24px 0 12px 0;
   }
   
-  /*imagen de ingreso*/
+
   img.avatar {
     width: 40%;
     border-radius: 50%;
   }
   
-  /* Agrega padding a los containers */
+  
   .container {
     padding: 16px;
     background-color: white;
   }
   
-  /* Estilo del texto "Olvidaste la contraseña"*/
+  
   span.psw {
     float: right;
     padding-top: 16px;
   }
   
- /* Responsive*/
+ 
   @media screen and (max-width: 300px) {
     span.psw {
       display: block;
@@ -97,7 +97,7 @@ form {
   }
 
   .button:hover {
-  background-color: #4CAF50; /* Verde */
+  background-color: #4CAF50;
   color: white;
   }
   
@@ -114,13 +114,3 @@ form {
     color: teal;
   }
 
-
-
-  /*div.avatar { //estilos del avatar no usados
-    height: 100px;
-    width: 100px;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    border-radius: 50%;
-    background-size: 50% auto;
-}*/

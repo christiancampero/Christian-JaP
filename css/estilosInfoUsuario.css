@@ -1,8 +1,4 @@
- /* ----------------------------------
-Css Profile Edit Dropdown
-Author: iModDesign
-Version: 1.0
------------------------------------- */
+ 
 body {
 	background:#222;
 }
@@ -95,7 +91,6 @@ a {text-decoration:none;}
   border-radius: 3px;
 }
 
-/* hover profile show menu */
 .profile:hover .menu {
 	display:block;
 }
